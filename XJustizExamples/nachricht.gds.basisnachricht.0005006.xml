@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><tns:nachricht.gds.basisnachricht.0005006 xmlns:tns="http://www.xjustiz.de" xmlns:xoev-code="http://xoev.de/schemata/code/1_0" xmlns:xoev-lc="http://xoev.de/latinchars/1_1/datatypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xjustiz.de xjustiz_0005_nachrichten_3_2.xsd">
+   <tns:nachrichtenkopf xjustizVersion="3.6.2">
+      <tns:erstellungszeitpunkt>3711-04-03T22:08:17Z</tns:erstellungszeitpunkt>
+      <tns:absender>
+         <tns:informationen>
+            <tns:auswahl_kommunikationspartner>
+               <tns:gericht listVersionID="3.7">
+                  <code>M1710S</code>
+               </tns:gericht>
+            </tns:auswahl_kommunikationspartner>
+         </tns:informationen>
+         <tns:eigeneNachrichtenID>7EB97A38-C9f2-56AB-EfF6-6E52dCCEFAfF</tns:eigeneNachrichtenID>
+      </tns:absender>
+      <tns:empfaenger>
+         <tns:informationen>
+            <tns:auswahl_kommunikationspartner>
+               <tns:gericht listVersionID="3.6">
+                  <code>U6389</code>
+               </tns:gericht>
+            </tns:auswahl_kommunikationspartner>
+         </tns:informationen>
+         <tns:auswahl_aktenzeichen>
+            <tns:aktenzeichen.freitext>iW</tns:aktenzeichen.freitext>
+         </tns:auswahl_aktenzeichen>
+      </tns:empfaenger>
+      <tns:herstellerinformation>
+         <tns:nameDesProdukts>J</tns:nameDesProdukts>
+         <tns:herstellerDesProdukts>3smbZ</tns:herstellerDesProdukts>
+         <tns:version>H</tns:version>
+      </tns:herstellerinformation>
+   </tns:nachrichtenkopf>
+</tns:nachricht.gds.basisnachricht.0005006>

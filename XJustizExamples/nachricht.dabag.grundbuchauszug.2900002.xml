@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?><tns:nachricht.dabag.grundbuchauszug.2900002 xmlns:tns="http://www.xjustiz.de" xmlns:xoev-code="http://xoev.de/schemata/code/1_0" xmlns:xoev-lc="http://xoev.de/latinchars/1_1/datatypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xjustiz.de xjustiz_2900_dabag_3_2.xsd">
+   <tns:nachrichtenkopf xjustizVersion="3.6.2">
+      <tns:erstellungszeitpunkt>2002-10-26T12:31:22Z</tns:erstellungszeitpunkt>
+      <tns:absender>
+         <tns:informationen>
+            <tns:auswahl_kommunikationspartner>
+               <tns:gericht listVersionID="3.7">
+                  <code>Y1211G</code>
+               </tns:gericht>
+            </tns:auswahl_kommunikationspartner>
+         </tns:informationen>
+         <tns:eigeneNachrichtenID>0df4a05A-e9Ec-C73F-EfBe-0a3ABc9bcd4f</tns:eigeneNachrichtenID>
+      </tns:absender>
+      <tns:empfaenger>
+         <tns:informationen>
+            <tns:auswahl_kommunikationspartner>
+               <tns:gericht listVersionID="3.6">
+                  <code>T6121</code>
+               </tns:gericht>
+            </tns:auswahl_kommunikationspartner>
+         </tns:informationen>
+         <tns:auswahl_aktenzeichen>
+            <tns:aktenzeichen.freitext>R</tns:aktenzeichen.freitext>
+         </tns:auswahl_aktenzeichen>
+      </tns:empfaenger>
+      <tns:herstellerinformation>
+         <tns:nameDesProdukts>F</tns:nameDesProdukts>
+         <tns:herstellerDesProdukts>8l</tns:herstellerDesProdukts>
+         <tns:version>HKj5</tns:version>
+      </tns:herstellerinformation>
+   </tns:nachrichtenkopf>
+   <tns:grunddaten/>
+   <tns:fachdaten>
+      <tns:grundbuchblatt>
+         <tns:amtsgericht listVersionID="3.6">
+            <code>P2302</code>
+         </tns:amtsgericht>
+         <tns:grundbuchbezirk>
+            <tns:name>A\</tns:name>
+            <tns:nummer>;</tns:nummer>
+         </tns:grundbuchbezirk>
+         <tns:blattnummer>HTuf</tns:blattnummer>
+         <tns:buchungsstelle>
+            <tns:auswahl_buchungsstelle>
+               <tns:grundstueck>
+                  <tns:flurstuecke>
+                     <tns:identifikationFlurstueck>
+                        <tns:gemarkungsschluessel>[</tns:gemarkungsschluessel>
+                        <tns:flurstuecksnummer>
+                           <tns:zaehler>G0</tns:zaehler>
+                        </tns:flurstuecksnummer>
+                     </tns:identifikationFlurstueck>
+                     <tns:wirtschaftsart>
+                        <code>009</code>
+                     </tns:wirtschaftsart>
+                     <tns:lage>g</tns:lage>
+                  </tns:flurstuecke>
+               </tns:grundstueck>
+            </tns:auswahl_buchungsstelle>
+         </tns:buchungsstelle>
+      </tns:grundbuchblatt>
+   </tns:fachdaten>
+</tns:nachricht.dabag.grundbuchauszug.2900002>

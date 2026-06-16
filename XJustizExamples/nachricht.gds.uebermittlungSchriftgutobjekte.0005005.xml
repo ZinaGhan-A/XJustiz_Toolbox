@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><tns:nachricht.gds.uebermittlungSchriftgutobjekte.0005005 xmlns:tns="http://www.xjustiz.de" xmlns:xoev-code="http://xoev.de/schemata/code/1_0" xmlns:xoev-lc="http://xoev.de/latinchars/1_1/datatypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xjustiz.de xjustiz_0005_nachrichten_3_2.xsd">
+   <tns:nachrichtenkopf xjustizVersion="3.6.2">
+      <tns:erstellungszeitpunkt>5293-12-30T20:48:07Z</tns:erstellungszeitpunkt>
+      <tns:absender>
+         <tns:informationen>
+            <tns:auswahl_kommunikationspartner>
+               <tns:gericht listVersionID="3.6">
+                  <code>R3308</code>
+               </tns:gericht>
+            </tns:auswahl_kommunikationspartner>
+         </tns:informationen>
+         <tns:eigeneNachrichtenID>D5cADE2E-D4fb-cDc7-3eAe-AbC9bcaA9e57</tns:eigeneNachrichtenID>
+      </tns:absender>
+      <tns:empfaenger>
+         <tns:informationen>
+            <tns:auswahl_kommunikationspartner>
+               <tns:gericht listVersionID="3.7">
+                  <code>D6265</code>
+               </tns:gericht>
+            </tns:auswahl_kommunikationspartner>
+         </tns:informationen>
+         <tns:auswahl_aktenzeichen>
+            <tns:aktenzeichen.freitext>i</tns:aktenzeichen.freitext>
+         </tns:auswahl_aktenzeichen>
+      </tns:empfaenger>
+      <tns:herstellerinformation>
+         <tns:nameDesProdukts>&gt;</tns:nameDesProdukts>
+         <tns:herstellerDesProdukts>Q</tns:herstellerDesProdukts>
+         <tns:version>^</tns:version>
+      </tns:herstellerinformation>
+   </tns:nachrichtenkopf>
+   <tns:grunddaten/>
+   <tns:schriftgutobjekte/>
+</tns:nachricht.gds.uebermittlungSchriftgutobjekte.0005005>
