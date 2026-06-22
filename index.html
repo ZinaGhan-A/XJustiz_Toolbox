@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>XJustiz Schema Workbench</title>
+<title>XJustiz Schema-Werkbank</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -137,7 +137,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
   font-size:10.5px;font-weight:600;color:var(--tw-ink);border-radius:4px;display:flex;gap:6px;align-items:center}
 .type-wrap>.title .fbadge{color:var(--c-imp);font-weight:500;cursor:pointer}.type-wrap>.title .fbadge:hover{text-decoration:underline}
 .type-wrap.inherited{border-color:#9bb0c9;background:rgba(235,242,252,.5)}.type-wrap.inherited>.title{color:#3f618c}
-.type-wrap.inherited>.title::before{content:"⇧ extends "}
+.type-wrap.inherited>.title::before{content:"⇧ erweitert "}
 .nub{fill:var(--line)}
 
 /* right panel */
@@ -285,54 +285,54 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 <body>
 <header>
   <div class="brand"><div class="glyph">&lt;/&gt;</div>
-    <div><h1>XJustiz Schema Workbench</h1><div class="sub" id="sub">no files loaded</div></div></div>
-  <button class="btn" id="railToggle"><span class="k">◧</span> Files</button>
-  <div class="switch"><button id="vOutline" class="on">Outline</button><button id="vDiagram">Diagram</button><button id="vGenerate">Generate</button></div>
+    <div><h1>XJustiz Schema-Werkbank</h1><div class="sub" id="sub">Keine Dateien geladen</div></div></div>
+  <button class="btn" id="railToggle"><span class="k">◧</span> Dateien</button>
+  <div class="switch"><button id="vOutline" class="on">XML-Ansicht</button><button id="vDiagram">Diagramm</button><button id="vGenerate">Generieren</button></div>
   <div class="spacer"></div>
   <div class="actions">
-    <button class="btn" id="rightToggle"><span class="k">◨</span> Inspector</button>
-    <button class="btn" id="validateBtn"><span class="k">✓</span> Validate</button>
-    <button class="btn" id="legendBtn"><span class="k">◑</span> Legend</button>
-    <button class="btn" id="loadBtn"><span class="k">↥</span> Add files</button>
+    <button class="btn" id="rightToggle"><span class="k">◨</span> Inspektor</button>
+    <button class="btn" id="validateBtn"><span class="k">✓</span> Validieren</button>
+    <button class="btn" id="legendBtn"><span class="k">◑</span> Legende</button>
+    <button class="btn" id="loadBtn"><span class="k">↥</span> Dateien hinzufügen</button>
     <input id="file" type="file" accept=".xml,.xsd,.wsdl,text/xml,application/xml" multiple hidden>
   </div>
 </header>
 
 <div class="body">
   <aside class="rail" id="rail">
-    <div class="rail-head"><h3>Workspace files</h3><button class="drawerClose" id="railClose" title="Close">✕</button></div>
+    <div class="rail-head"><h3>Arbeitsbereich-Dateien</h3><button class="drawerClose" id="railClose" title="Schließen">✕</button></div>
     <div class="ver-load">
-      <select id="verSel" title="Load a complete XJustiz schema set from the server">
-        <option value="">＋ Load XJustiz version…</option>
-        <option value="3.5.1">XJustiz 3.5.1 (full set)</option>
-        <option value="3.6.2">XJustiz 3.6.2 (full set)</option>
-        <option value="4.0.0">XJustiz 4.0.0 (full set)</option>
+      <select id="verSel" title="Vollständigen XJustiz-Schema-Satz vom Server laden">
+        <option value="">＋ XJustiz-Version laden…</option>
+        <option value="3.5.1">XJustiz 3.5.1 (vollständig)</option>
+        <option value="3.6.2">XJustiz 3.6.2 (vollständig)</option>
+        <option value="4.0.0">XJustiz 4.0.0 (vollständig)</option>
       </select>
       <div id="verStatus" class="ver-status"></div>
     </div>
     <div class="scroll" id="fileList"></div>
-    <div class="drop-hint" id="railDrop">Drop or click to add .xsd files<br><span class="samplelink" id="loadSample">or load the DABAG sample</span></div>
+    <div class="drop-hint" id="railDrop">Klicken oder ziehen, um .xsd-Dateien hinzuzufügen<br><span class="samplelink" id="loadSample">oder DABAG-Beispiel laden</span></div>
   </aside>
 
   <div class="center">
     <div class="subbar" id="outlinebar">
       <div class="combo"><span class="ico">⌕</span>
-        <input id="osearch" type="text" placeholder="search this file — name, type, text…" autocomplete="off" spellcheck="false"></div>
-      <button class="btn" id="expandAll"><span class="k">⊞</span> Expand all</button>
-      <button class="btn" id="collapseAll"><span class="k">⊟</span> Collapse all</button>
+        <input id="osearch" type="text" placeholder="Schema durchsuchen — Name, Typ, Text…" autocomplete="off" spellcheck="false"></div>
+      <button class="btn" id="expandAll"><span class="k">⊞</span> Alle ausklappen</button>
+      <button class="btn" id="collapseAll"><span class="k">⊟</span> Alle einklappen</button>
     </div>
     <div class="subbar" id="subbar">
       <div class="combo"><span class="ico">⌕</span>
-        <input id="combo" type="text" placeholder="pick element or type to diagram…" autocomplete="off" spellcheck="false">
+        <input id="combo" type="text" placeholder="Element oder Typ für Diagramm auswählen…" autocomplete="off" spellcheck="false">
         <div class="dropdown" id="dropdown"></div></div>
       <div class="zoomctl">
-        <button class="btn" id="zoomOut" title="Zoom out">−</button>
-        <button class="btn" id="zoomLevel" title="Reset to 100%">100%</button>
-        <button class="btn" id="zoomIn" title="Zoom in">+</button>
-        <button class="btn" id="zoomFit"><span class="k">⤢</span> Fit</button>
+        <button class="btn" id="zoomOut" title="Verkleinern">−</button>
+        <button class="btn" id="zoomLevel" title="Auf 100% zurücksetzen">100%</button>
+        <button class="btn" id="zoomIn" title="Vergrößern">+</button>
+        <button class="btn" id="zoomFit"><span class="k">⤢</span> Anpassen</button>
       </div>
-      <button class="btn" id="collapseBtn"><span class="k">⊟</span> Collapse</button>
-      <button class="btn" id="printBtn"><span class="k">⎙</span> Print / PDF</button>
+      <button class="btn" id="collapseBtn"><span class="k">⊟</span> Einklappen</button>
+      <button class="btn" id="printBtn"><span class="k">⎙</span> Drucken / PDF</button>
     </div>
     <div id="outline" class="show"></div>
     <div id="diagwrap"><div class="canvas-inner" id="inner"><svg id="svg"></svg><div id="diagram"></div></div></div>
@@ -340,14 +340,14 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
          <select id="genRoot" class="gen-select"></select>
          <span id="genStatus" class="genstat"></span>
          <div class="spacer"></div>
-         <button class="btn" id="genOpenXml"><span class="k">↥</span> Open XML</button>
-         <button class="btn" id="genLoadTpl"><span class="k">⌬</span> Load tpl</button>
-         <button class="btn" id="genSaveTpl"><span class="k">⌬</span> Save tpl</button>
-         <button class="btn" id="genValidate"><span class="k">✓</span> Validate</button>
-         <button class="btn" id="genCopy"><span class="k">⧉</span> Copy</button>
-         <button class="btn" id="genDownload"><span class="k">↧</span> Download</button>
-         <button class="btn" id="genAutofill" title="Fill every field with random valid test data — click again for new values"><span class="k">✱</span> Auto-fill test data</button>
-         <button class="btn" id="genReset" title="Clear all fields back to an empty skeleton (keeps fixed/default values)"><span class="k">↺</span> Reset</button>
+         <button class="btn" id="genOpenXml"><span class="k">↥</span> XML öffnen</button>
+         <button class="btn" id="genLoadTpl"><span class="k">⌬</span> Vorlage laden</button>
+         <button class="btn" id="genSaveTpl"><span class="k">⌬</span> Vorlage speichern</button>
+         <button class="btn" id="genValidate"><span class="k">✓</span> Validieren</button>
+         <button class="btn" id="genCopy"><span class="k">⧉</span> Kopieren</button>
+         <button class="btn" id="genDownload"><span class="k">↧</span> Herunterladen</button>
+         <button class="btn" id="genAutofill" title="Alle Felder mit zufälligen Testdaten füllen — erneut klicken für neue Werte"><span class="k">✱</span> Testdaten ausfüllen</button>
+         <button class="btn" id="genReset" title="Alle Felder auf leeres Gerüst zurücksetzen (feste/Standard-Werte bleiben)"><span class="k">↺</span> Zurücksetzen</button>
          <input id="tplFile" type="file" accept=".json,application/json" hidden>
          <input id="xmlFile" type="file" accept=".xml,text/xml,application/xml" hidden>
       </div>
@@ -355,8 +355,8 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
   </div>
 
   <aside class="right" id="right">
-    <div class="rtabs"><button id="tabInspect" class="on">Inspect</button><button id="tabValidate">Validate <span class="cnt" id="vcount"></span></button><button class="drawerClose" id="rightClose" title="Close">✕</button></div>
-    <div class="rpane on empty" id="paneInspect"><div>Select a node to inspect it.</div></div>
+    <div class="rtabs"><button id="tabInspect" class="on">Inspektion</button><button id="tabValidate">Validieren <span class="cnt" id="vcount"></span></button><button class="drawerClose" id="rightClose" title="Schließen">✕</button></div>
+    <div class="rpane on empty" id="paneInspect"><div>Einen Knoten auswählen, um ihn zu inspizieren.</div></div>
     <div class="rpane" id="paneValidate"></div>
   </aside>
 </div>
@@ -364,7 +364,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 <div class="legend" id="legend"></div>
 
 <div id="scrim"></div>
-<div id="drop"><div class="b"><div class="big">Drop XSD or XML files</div><div class="sub">schemas add to the workspace · an XML message gets validated</div></div></div>
+<div id="drop"><div class="b"><div class="big">XSD- oder XML-Dateien ablegen</div><div class="sub">Schemata werden dem Arbeitsbereich hinzugefügt · XML-Nachrichten werden validiert</div></div></div>
 
 <script type="application/xml" id="sample" data-name="xjustiz_2900_dabag_3_2.xsd"><?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -3988,18 +3988,18 @@ function inspect(node,opts){opts=opts||{};
     if(mn!=null||mx!=null)rows.push(['occurs',(mn==null?'1':mn)+' … '+(mx==null?'1':mx)]);
     ['use','fixed','default','value','namespace'].forEach(function(k){var v=node.getAttribute(k);if(v!=null)rows.push([k,v]);});
   }
-  if(rows.length){h+='<div class="sec-h">Properties</div>';rows.forEach(function(r){
+  if(rows.length){h+='<div class="sec-h">Eigenschaften</div>';rows.forEach(function(r){
     var link=r[2]&&(r[2].cls==='complex'||r[2].cls==='simple');
     h+='<div class="kv"><span class="k">'+esc(r[0])+'</span><span class="v'+(link?' link':'')+'"'+(link?' data-goto="'+esc(r[2].name)+'" data-file="'+esc(r[2].file)+'"':'')+'>'+esc(r[1])+(r[2]&&r[2].cls==='unresolved'?' ⚠':'')+'</span></div>';});}
-  var docs=docOf(node);if(docs.length){h+='<div class="sec-h">Documentation</div>';docs.forEach(function(d){h+='<div class="docbox">'+esc(d)+'</div>';});}
+  var docs=docOf(node);if(docs.length){h+='<div class="sec-h">Dokumentation</div>';docs.forEach(function(d){h+='<div class="docbox">'+esc(d)+'</div>';});}
   var rec=fileOf(node);
-  h+='<div class="sec-h">Location</div><div class="path">'+(rec?'<b>'+esc(rec.name)+'</b><br>':'')+pathOf(node)+'</div>';
+  h+='<div class="sec-h">Speicherort</div><div class="path">'+(rec?'<b>'+esc(rec.name)+'</b><br>':'')+pathOf(node)+'</div>';
   // actions
   h+='<div class="dact">';
-  if(l==='complexType'&&nm)h+='<button class="btn" data-diag="'+esc(nm)+'">Open as diagram →</button>';
-  if((l==='element')&&nm)h+='<button class="btn" data-diagel="'+esc(nm)+'" data-elfile="'+esc(rec?rec.name:'')+'">Open as diagram →</button>';
+  if(l==='complexType'&&nm)h+='<button class="btn" data-diag="'+esc(nm)+'">Als Diagramm öffnen →</button>';
+  if((l==='element')&&nm)h+='<button class="btn" data-diagel="'+esc(nm)+'" data-elfile="'+esc(rec?rec.name:'')+'">Als Diagramm öffnen →</button>';
   if(rows.some(function(r){return r[2]&&r[2].cls==='complex';})){var t=rows.filter(function(r){return r[2]&&r[2].cls==='complex';})[0];
-    h+='<button class="btn" data-goto="'+esc(t[2].name)+'" data-file="'+esc(t[2].file)+'">Go to '+esc(t[2].name)+' →</button>';}
+    h+='<button class="btn" data-goto="'+esc(t[2].name)+'" data-file="'+esc(t[2].file)+'">Gehe zu '+esc(t[2].name)+' →</button>';}
   h+='</div>';
   pane.innerHTML=h;
   pane.querySelectorAll('[data-goto]').forEach(function(el){el.onclick=function(){gotoType(el.dataset.goto,el.dataset.file);};});
@@ -4028,7 +4028,7 @@ function ocolor(l){return OCOL[l]||'--c-other';}
 var oNodeRow=new WeakMap();
 function renderOutline(){var rec=W.files.get(W.active);outline.innerHTML='';outSel=null;
   if(!rec){outline.innerHTML=emptyHTML();wireEmpty(outline);return;}
-  if(rec.error){outline.innerHTML='<div class="es">⚠ Parse error in '+esc(rec.name)+':<br><br><span class="mono" style="color:var(--err)">'+esc(rec.error)+'</span></div>';return;}
+  if(rec.error){outline.innerHTML='<div class="es">⚠ Parse-Fehler in '+esc(rec.name)+':<br><br><span class="mono" style="color:var(--err)">'+esc(rec.error)+'</span></div>';return;}
   outline.appendChild(oRow(rec.root,0));
   if(outlineQuery)applyFilter(outlineQuery);}
 function oRow(n,depth){var l=ln(n),kids=eles(n),text=dtext(n),has=kids.length>0;
@@ -4050,7 +4050,7 @@ function oRow(n,depth){var l=ln(n),kids=eles(n),text=dtext(n),has=kids.length>0;
     body.appendChild(sp);});
   var loc=n.getAttribute&&n.getAttribute('schemaLocation');
   if(loc){var b=base(loc),present=W.files.has(b);var sp=document.createElement('span');
-    sp.className='ochip '+(present?'ref':'miss');sp.textContent=loc+(present?'':' (missing)');
+    sp.className='ochip '+(present?'ref':'miss');sp.textContent=loc+(present?'':' (fehlend)');
     if(present)sp.onclick=function(e){e.stopPropagation();setActive(b);};body.appendChild(sp);}
   var occ=n.getAttribute&&occLabel(n);if(occ){var o=document.createElement('span');o.className='ochip';o.textContent=occ;body.appendChild(o);}
   if(text&&!has){var t=document.createElement('span');t.className='otxt';t.textContent='“'+text+'”';body.appendChild(t);}
@@ -4208,29 +4208,29 @@ document.addEventListener('mousedown',function(e){if(!e.target.closest('.combo')
 var _lintCache=null;
 function lint(){if(_lintCache)return _lintCache;var issues=[];
   W.files.forEach(function(rec){
-    if(rec.error){issues.push({sev:'error',msg:'XML parse error: '+rec.error,file:rec.name});return;}
+    if(rec.error){issues.push({sev:'error',msg:'XML-Parse-Fehler: '+rec.error,file:rec.name});return;}
     // missing includes/imports
-    rec.includes.forEach(function(x){if(x.loc&&!x.file)issues.push({sev:'error',msg:'Included file not in workspace: '+x.loc,file:rec.name});});
-    rec.imports.forEach(function(x){if(x.loc&&!x.file)issues.push({sev:'warn',msg:'Imported file not in workspace: '+x.loc+' (namespace '+(x.ns||'—')+')',file:rec.name});
-      else if(x.file){var t=W.files.get(x.file);if(t&&!t.error&&x.ns&&t.targetNS!==x.ns)issues.push({sev:'warn',msg:'Import namespace mismatch: declared '+x.ns+' but '+x.file+' targets '+(t.targetNS||'(none)'),file:rec.name});}});
+    rec.includes.forEach(function(x){if(x.loc&&!x.file)issues.push({sev:'error',msg:'Eingebundene Datei nicht im Arbeitsbereich: '+x.loc,file:rec.name});});
+    rec.imports.forEach(function(x){if(x.loc&&!x.file)issues.push({sev:'warn',msg:'Importierte Datei nicht im Arbeitsbereich: '+x.loc+' (Namespace '+(x.ns||'—')+')',file:rec.name});
+      else if(x.file){var t=W.files.get(x.file);if(t&&!t.error&&x.ns&&t.targetNS!==x.ns)issues.push({sev:'warn',msg:'Import-Namespace-Konflikt: deklariert '+x.ns+', aber '+x.file+' hat Ziel '+(t.targetNS||'(keinen)'),file:rec.name});}});
     var all=rec.root.getElementsByTagName('*');
     for(var i=0;i<all.length;i++){var n=all[i],l=ln(n);
       ['type','base','itemType'].forEach(function(k){var v=n.getAttribute(k);if(!v)return;var r=resolveRef(n,v,['complexType','simpleType']);
-        if(!r.ok&&!r.builtin)issues.push({sev:'error',msg:'Unresolved '+k+' "'+v+'" ('+r.reason+')',file:rec.name,node:n});});
-      if(l==='element'){var rf=n.getAttribute('ref');if(rf){var r2=resolveRef(n,rf,['element']);if(!r2.ok)issues.push({sev:'error',msg:'Unresolved element ref "'+rf+'"',file:rec.name,node:n});}}
-      if(l==='group'){var rg=n.getAttribute('ref');if(rg){var r3=resolveRef(n,rg,['group']);if(!r3.ok)issues.push({sev:'error',msg:'Unresolved group ref "'+rg+'"',file:rec.name,node:n});}}
-      if(l==='keyref'){var rr=n.getAttribute('refer');if(rr){var nm=strip(rr);if(!W.ids.has(nm))issues.push({sev:'error',msg:'keyref refers to undefined key "'+rr+'"',file:rec.name,node:n});}}
+        if(!r.ok&&!r.builtin)issues.push({sev:'error',msg:'Nicht aufgelöst '+k+' "'+v+'" ('+r.reason+')',file:rec.name,node:n});});
+      if(l==='element'){var rf=n.getAttribute('ref');if(rf){var r2=resolveRef(n,rf,['element']);if(!r2.ok)issues.push({sev:'error',msg:'Nicht aufgelöste Element-Referenz "'+rf+'"',file:rec.name,node:n});}}
+      if(l==='group'){var rg=n.getAttribute('ref');if(rg){var r3=resolveRef(n,rg,['group']);if(!r3.ok)issues.push({sev:'error',msg:'Nicht aufgelöste Gruppen-Referenz "'+rg+'"',file:rec.name,node:n});}}
+      if(l==='keyref'){var rr=n.getAttribute('refer');if(rr){var nm=strip(rr);if(!W.ids.has(nm))issues.push({sev:'error',msg:'keyref verweist auf undefiniertes Schlüsselelement "'+rr+'"',file:rec.name,node:n});}}
     }
   });
   // duplicate globals
   W.symbols.forEach(function(arr,key){if(arr.length>1){var nm=key.split('|')[1];var files=arr.map(function(s){return s.file;});
-    issues.push({sev:'warn',msg:'Duplicate definition of "'+nm+'" in: '+files.join(', '),file:files[0]});}});
+    issues.push({sev:'warn',msg:'Doppelte Definition von "'+nm+'" in: '+files.join(', '),file:files[0]});}});
   // circular includes
   detectCycles(issues);
   _lintCache=issues;return issues;}
 function detectCycles(issues){var seen={};
   W.files.forEach(function(rec){var stack=[];(function dfs(name,path){if(path.indexOf(name)>=0){var cyc=path.slice(path.indexOf(name)).concat(name).join(' → ');
-      if(!seen[cyc]){seen[cyc]=1;issues.push({sev:'info',msg:'Include cycle: '+cyc,file:name});}return;}
+      if(!seen[cyc]){seen[cyc]=1;issues.push({sev:'info',msg:'Include-Zyklus: '+cyc,file:name});}return;}
     var r=W.files.get(name);if(!r||r.error)return;r.includes.forEach(function(x){if(x.file)dfs(x.file,path.concat(name));});})(rec.name,[]);});}
 
 /* ============== VALIDATOR: instance check (best-effort) ============== */
@@ -4267,32 +4267,32 @@ function matchesFirst(part,child){var fs=firstNames(part);return fs.some(functio
 
 function validateInstance(doc){var errs=[];var rootEl=doc.documentElement;
   var decl=(W.symbols.get((rootEl.namespaceURI||'')+'|'+ln(rootEl))||[]).filter(function(s){return s.kind==='element';})[0];
-  if(!decl){errs.push({sev:'error',msg:'No global element declaration found for root <'+ln(rootEl)+'> in namespace '+(rootEl.namespaceURI||'(none)'),file:'(instance)'});return errs;}
+  if(!decl){errs.push({sev:'error',msg:'Keine globale Element-Deklaration für Root <'+ln(rootEl)+'> in Namespace '+(rootEl.namespaceURI||'(keiner)'),file:'(Instanz)'});return errs;}
   validateEl(rootEl,decl.node,'/'+ln(rootEl),errs);return errs;}
 function declType(declNode){var inlineCT=eles(declNode).filter(function(k){return ln(k)==='complexType';})[0];if(inlineCT)return{cls:'complex',node:inlineCT};
   var tref=declNode.getAttribute('type');if(!tref)return{cls:'none'};return classify(declNode,tref);}
 function validateEl(instEl,declNode,path,errs){var t=declType(declNode);
   if(t.cls==='complex'){var nt=normType(t.node);
     // attributes
-    nt.attrs.forEach(function(at){if(at.use==='required'&&!instEl.getAttribute(at.name))errs.push({sev:'error',msg:'Missing required attribute @'+at.name,file:'(instance)',path:path});});
+    nt.attrs.forEach(function(at){if(at.use==='required'&&!instEl.getAttribute(at.name))errs.push({sev:'error',msg:'Pflicht-Attribut @'+at.name+' fehlt',file:'(Instanz)',path:path});});
     // children
     var kids=eles(instEl);
     if(nt.group){var res=matchGroup(kids,nt.group,path,errs);
       // recurse into matched element children
       res.matched.forEach(function(pair){if(pair.part.decl)validateEl(pair.el,pair.part.decl,path+'/'+ln(pair.el),errs);});
-    } else if(kids.length){errs.push({sev:'warn',msg:'Element has children but type defines no content model',file:'(instance)',path:path});}
+    } else if(kids.length){errs.push({sev:'warn',msg:'Element hat Kindelemente, aber der Typ definiert kein Inhaltsmodell',file:'(Instanz)',path:path});}
   } else if(t.cls==='simple'||t.cls==='builtin'){
-    if(eles(instEl).length)errs.push({sev:'error',msg:'Simple-typed element must not contain child elements',file:'(instance)',path:path});
-    var msg=checkSimple(dtext(instEl),declNode,t);if(msg)errs.push({sev:'error',msg:msg+' (value: "'+dtext(instEl).slice(0,40)+'")',file:'(instance)',path:path});
-  } else if(t.cls==='unresolved'){errs.push({sev:'warn',msg:'Type "'+t.name+'" not in workspace — cannot validate this element\'s content',file:'(instance)',path:path});}
+    if(eles(instEl).length)errs.push({sev:'error',msg:'Einfach typisiertes Element darf keine Kindelemente enthalten',file:'(Instanz)',path:path});
+    var msg=checkSimple(dtext(instEl),declNode,t);if(msg)errs.push({sev:'error',msg:msg+' (Wert: "'+dtext(instEl).slice(0,40)+'")',file:'(Instanz)',path:path});
+  } else if(t.cls==='unresolved'){errs.push({sev:'warn',msg:'Typ "'+t.name+'" nicht im Arbeitsbereich — Inhalt dieses Elements kann nicht validiert werden',file:'(Instanz)',path:path});}
 }
 function matchGroup(kids,group,path,errs){var cur={i:0};var matched=[];
   consume(group,kids,cur,matched,path,errs,true);
-  for(;cur.i<kids.length;cur.i++)errs.push({sev:'error',msg:'Unexpected element <'+ln(kids[cur.i])+'>',file:'(instance)',path:path});
+  for(;cur.i<kids.length;cur.i++)errs.push({sev:'error',msg:'Unerwartetes Element <'+ln(kids[cur.i])+'>',file:'(Instanz)',path:path});
   return{matched:matched};}
 function consume(part,kids,cur,matched,path,errs,top){
   if(part.kind==='element'){var c=0;while(cur.i<kids.length&&ln(kids[cur.i])===part.name&&nseq(part.ns,kids[cur.i].namespaceURI)&&c<part.max){matched.push({el:kids[cur.i],part:part});cur.i++;c++;}
-    if(c<part.min)errs.push({sev:'error',msg:'Expected element <'+part.name+'>'+(c?' more times':'')+' (got '+c+', need '+part.min+')',file:'(instance)',path:path});return;}
+    if(c<part.min)errs.push({sev:'error',msg:'Element <'+part.name+'> erwartet'+(c?' (weitere Male)':'')+' (erhalten '+c+', benötigt '+part.min+')',file:'(Instanz)',path:path});return;}
   if(part.kind==='any'){var c2=0;while(cur.i<kids.length&&c2<part.max){matched.push({el:kids[cur.i],part:part});cur.i++;c2++;if(part.max===Infinity&&cur.i>=kids.length)break;}return;}
   if(part.kind==='group'){
     if(part.comp==='sequence'){var reps=0;
@@ -4301,19 +4301,19 @@ function consume(part,kids,cur,matched,path,errs,top){
       if(reps<part.min&&part.min>0&&cur.i===0){}return;}
     if(part.comp==='choice'){var r=0;while(r<part.max&&cur.i<kids.length){var pick=part.parts.filter(function(p){return matchesFirst(p,kids[cur.i]);})[0];
         if(!pick)break;consume(pick,kids,cur,matched,path,errs,false);r++;}
-      if(r<part.min)errs.push({sev:'error',msg:'Expected one of a choice group here',file:'(instance)',path:path});return;}
+      if(r<part.min)errs.push({sev:'error',msg:'Eines der Auswahl-Elemente hier erwartet',file:'(Instanz)',path:path});return;}
     if(part.comp==='all'){var pool=part.parts.slice();var guard=0;
       while(cur.i<kids.length&&pool.length&&guard++<999){var idx=pool.findIndex(function(p){return matchesFirst(p,kids[cur.i]);});
         if(idx<0)break;consume(pool[idx],kids,cur,matched,path,errs,false);pool.splice(idx,1);}
-      pool.forEach(function(p){if(p.kind==='element'&&p.min>0)errs.push({sev:'error',msg:'Missing element <'+p.name+'> in all-group',file:'(instance)',path:path});});return;}
+      pool.forEach(function(p){if(p.kind==='element'&&p.min>0)errs.push({sev:'error',msg:'Element <'+p.name+'> fehlt in all-Gruppe',file:'(Instanz)',path:path});});return;}
   }}
 function checkSimple(val,declNode,t){val=val==null?'':val.trim();
   if(t.cls==='builtin'){var b=strip(t.name);return checkBuiltin(val,b);}
   if(t.cls==='simple'&&t.node){var f=facets(t.node);
-    if(f.enum.length&&f.enum.indexOf(val)<0)return 'Value not in allowed list ('+f.enum.slice(0,6).join(', ')+(f.enum.length>6?', …':'')+')';
-    if(f.pattern){try{if(!new RegExp('^(?:'+f.pattern+')$').test(val))return 'Value does not match required pattern';}catch(e){}}
-    if(f.minLength!=null&&val.length<f.minLength)return 'Value shorter than minLength '+f.minLength;
-    if(f.maxLength!=null&&val.length>f.maxLength)return 'Value longer than maxLength '+f.maxLength;
+    if(f.enum.length&&f.enum.indexOf(val)<0)return 'Wert nicht in der erlaubten Liste ('+f.enum.slice(0,6).join(', ')+(f.enum.length>6?', …':'')+')';
+    if(f.pattern){try{if(!new RegExp('^(?:'+f.pattern+')$').test(val))return 'Wert entspricht nicht dem erforderlichen Muster';}catch(e){}}
+    if(f.minLength!=null&&val.length<f.minLength)return 'Wert kürzer als minLength '+f.minLength;
+    if(f.maxLength!=null&&val.length>f.maxLength)return 'Wert länger als maxLength '+f.maxLength;
     if(f.base){var bb=classify(t.node,f.base);if(bb.cls==='builtin'){var m=checkBuiltin(val,strip(f.base));if(m)return m;}}
     return null;}
   return null;}
@@ -4323,14 +4323,14 @@ function facets(st){var r=eles(st).filter(function(k){return ln(k)==='restrictio
     if(l==='enumeration')out.enum.push(v);else if(l==='pattern')out.pattern=v;
     else if(l==='minLength')out.minLength=+v;else if(l==='maxLength')out.maxLength=+v;else if(l==='length'){out.minLength=+v;out.maxLength=+v;}});return out;}
 function checkBuiltin(v,b){if(v==='')return null;
-  switch(b){case 'integer':case 'int':case 'long':case 'short':case 'byte':return /^[+-]?\d+$/.test(v)?null:'Not a valid '+b;
-    case 'nonNegativeInteger':case 'positiveInteger':case 'unsignedInt':case 'unsignedLong':return /^\+?\d+$/.test(v)?null:'Not a valid '+b;
-    case 'decimal':case 'double':case 'float':return /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(v)?null:'Not a valid number';
-    case 'boolean':return /^(true|false|0|1)$/.test(v)?null:'Not a valid boolean';
-    case 'date':return /^-?\d{4}-\d{2}-\d{2}(Z|[+-]\d{2}:\d{2})?$/.test(v)?null:'Not a valid date';
-    case 'dateTime':return /^-?\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})?$/.test(v)?null:'Not a valid dateTime';
-    case 'time':return /^\d{2}:\d{2}:\d{2}/.test(v)?null:'Not a valid time';
-    case 'gYear':return /^-?\d{4}/.test(v)?null:'Not a valid gYear';
+  switch(b){case 'integer':case 'int':case 'long':case 'short':case 'byte':return /^[+-]?\d+$/.test(v)?null:'Kein gültiges '+b;
+    case 'nonNegativeInteger':case 'positiveInteger':case 'unsignedInt':case 'unsignedLong':return /^\+?\d+$/.test(v)?null:'Kein gültiges '+b;
+    case 'decimal':case 'double':case 'float':return /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(v)?null:'Keine gültige Zahl';
+    case 'boolean':return /^(true|false|0|1)$/.test(v)?null:'Kein gültiger Boolean';
+    case 'date':return /^-?\d{4}-\d{2}-\d{2}(Z|[+-]\d{2}:\d{2})?$/.test(v)?null:'Kein gültiges Datum';
+    case 'dateTime':return /^-?\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})?$/.test(v)?null:'Kein gültiges Datum/Uhrzeit';
+    case 'time':return /^\d{2}:\d{2}:\d{2}/.test(v)?null:'Keine gültige Uhrzeit';
+    case 'gYear':return /^-?\d{4}/.test(v)?null:'Kein gültiges Jahr';
     default:return null;}}
 
 /* render validation pane */
@@ -4341,23 +4341,23 @@ function renderValidate(){
   lintAll=inst.concat(issues);
   var nerr=lintAll.filter(function(x){return x.sev==='error';}).length,nwarn=lintAll.filter(function(x){return x.sev==='warn';}).length,ninfo=lintAll.filter(function(x){return x.sev==='info';}).length;
   var vc=$('vcount');vc.textContent=nerr?nerr:(nwarn?nwarn:'');vc.className='cnt '+(nerr?'err':(nwarn?'warn':''));
-  var h='<div class="vbar"><button class="btn" id="reValidate">↻ Re-run linter</button></div>';
-  h+='<div class="idrop" id="idrop">⤓ Drop / click to validate an <b>XML message</b> against this schema set</div>';
-  h+='<div class="vsummary"><span class="pill '+(nerr?'err':'ok')+'">'+(nerr?nerr+' error'+(nerr>1?'s':''):'0 errors')+'</span><span class="pill warn">'+nwarn+' warning'+(nwarn!==1?'s':'')+'</span>'+(ninfo?'<span class="pill info">'+ninfo+' info</span>':'')+'</div>';
+  var h='<div class="vbar"><button class="btn" id="reValidate">↻ Linter erneut ausführen</button></div>';
+  h+='<div class="idrop" id="idrop">⤓ Ablegen / klicken, um eine <b>XML-Nachricht</b> gegen diesen Schema-Satz zu validieren</div>';
+  h+='<div class="vsummary"><span class="pill '+(nerr?'err':'ok')+'">'+(nerr?nerr+' Fehler':'0 Fehler')+'</span><span class="pill warn">'+nwarn+' Warnung'+(nwarn!==1?'en':'')+'</span>'+(ninfo?'<span class="pill info">'+ninfo+' Info</span>':'')+'</div>';
   if(lastInstance){var ierr=inst.filter(function(x){return x.sev==='error';}).length;
-    h+='<div class="sec-h">Instance — '+esc(lastInstance.name)+'</div>';
-    if(!ierr)h+='<span class="pill ok" style="display:inline-block;margin-bottom:8px">Structurally valid ✓</span>';
+    h+='<div class="sec-h">Instanz — '+esc(lastInstance.name)+'</div>';
+    if(!ierr)h+='<span class="pill ok" style="display:inline-block;margin-bottom:8px">Strukturell gültig ✓</span>';
     inst.forEach(function(x){h+=issueHTML(x);});}
-  h+='<div class="sec-h">Schema bundle</div>';
-  if(!issues.length)h+='<span class="pill ok" style="display:inline-block">No bundle issues ✓</span>';
+  h+='<div class="sec-h">Schema-Bündel</div>';
+  if(!issues.length)h+='<span class="pill ok" style="display:inline-block">Keine Bündel-Probleme ✓</span>';
   issues.forEach(function(x){h+=issueHTML(x);});
-  h+='<div class="note">Instance validation is best-effort structural (order, occurrence, required attributes, enumerations &amp; basic datatypes), not a full XSD processor — substitution groups, xsi:type and full identity constraints are not evaluated.</div>';
+  h+='<div class="note">Die Instanz-Validierung ist eine strukturelle Prüfung (Reihenfolge, Auftreten, Pflichtattribute, Enumerationen &amp; Basistypen), kein vollständiger XSD-Prozessor — Substitutionsgruppen, xsi:type und vollständige Identitätsbeschränkungen werden nicht ausgewertet.</div>';
   $('paneValidate').innerHTML=h;$('reValidate').onclick=function(){renderValidate();};setupIDrop();
   $('paneValidate').querySelectorAll('[data-iss]').forEach(function(el){el.onclick=function(){var x=lintAll[+el.dataset.iss];if(!x)return;if(x.node){setView('outline');revealOutline(x.node);}else if(x.file&&W.files.has(x.file)){setActive(x.file);}};});}
 function setupIDrop(){var d=$('idrop');if(!d)return;d.onclick=function(){var inp=document.createElement('input');inp.type='file';inp.accept='.xml';
   inp.onchange=function(e){var f=e.target.files[0];if(f){var r=new FileReader();r.onload=function(){runInstance(r.result,f.name);};r.readAsText(f);}};inp.click();};}
 function runInstance(text,name){var d=new DOMParser().parseFromString(text,'application/xml');var perr=d.querySelector('parsererror');
-  var inst;if(perr)inst=[{sev:'error',msg:'XML not well-formed: '+perr.textContent.replace(/\s+/g,' ').trim().slice(0,160),file:name}];
+  var inst;if(perr)inst=[{sev:'error',msg:'XML nicht wohlgeformt: '+perr.textContent.replace(/\s+/g,' ').trim().slice(0,160),file:name}];
   else inst=validateInstance(d).map(function(x){x.file=name;return x;});
   lastInstance={name:name,issues:inst};setTab('validate');renderValidate();}
 
@@ -4365,16 +4365,16 @@ $('validateBtn').onclick=function(){setTab('validate');revealRight();renderValid
 
 /* ============== files rail ============== */
 function renderRail(){var list=$('fileList');list.innerHTML='';
-  if(!W.files.size){list.innerHTML='<div class="note" style="padding:10px">No files yet. Drop your XJustiz <b>.xsd</b> files here, or load the sample below.</div>';return;}
+  if(!W.files.size){list.innerHTML='<div class="note" style="padding:10px">Noch keine Dateien. XJustiz <b>.xsd</b>-Dateien hier ablegen oder Beispiel unten laden.</div>';return;}
   var files=Array.from(W.files.values()).sort(function(a,b){return a.name.localeCompare(b.name);});
   var bySev={};lint().forEach(function(x){var b=bySev[x.file]||(bySev[x.file]={err:false,warn:false});if(x.sev==='error')b.err=true;else if(x.sev==='warn')b.warn=true;});
   files.forEach(function(rec){var fi=bySev[rec.name]||{};
     var sev=rec.error||fi.err?'err':(fi.warn?'warn':'ok');
     var it=tg('file-item'+(rec.name===W.active?' active':''));
     var top=tg('fi-top');top.innerHTML='<span class="dot '+sev+'"></span><span class="nm">'+esc(rec.name)+'</span>';
-    var rm=el('button','rm','×');rm.title='Remove from workspace';rm.onclick=function(e){e.stopPropagation();removeFile(rec.name);};top.appendChild(rm);
+    var rm=el('button','rm','×');rm.title='Aus Arbeitsbereich entfernen';rm.onclick=function(e){e.stopPropagation();removeFile(rec.name);};top.appendChild(rm);
     it.appendChild(top);
-    var meta=tg('meta');meta.textContent=(rec.targetNS?shortNs(rec.targetNS):'(no targetNamespace)');it.appendChild(meta);
+    var meta=tg('meta');meta.textContent=(rec.targetNS?shortNs(rec.targetNS):'(kein Ziel-Namespace)');it.appendChild(meta);
     var links=tg('links');var any=false;
     rec.includes.concat([]).forEach(function(x){any=true;var a=tg('link'+(x.file?'':' miss'));a.innerHTML='<span class="lt">inc</span>'+esc(x.loc||'?')+(x.file?'':' ⚠');
       if(x.file)a.onclick=function(ev){ev.stopPropagation();setActive(x.file);};links.appendChild(a);});
@@ -4399,7 +4399,7 @@ function setView(v){curView=v;
 $('vOutline').onclick=function(){setView('outline');};$('vDiagram').onclick=function(){setView('diagram');};
 $('vGenerate').onclick=function(){setView('generate');};
 
-function updateSub(){$('sub').textContent=W.files.size?((W.active||'—')+'  ·  '+W.files.size+' file'+(W.files.size>1?'s':'')+' in workspace'):'no files loaded';}
+function updateSub(){$('sub').textContent=W.files.size?((W.active||'—')+'  ·  '+W.files.size+' Datei'+(W.files.size>1?'en':'')+' im Arbeitsbereich'):'Keine Dateien geladen';}
 function setActive(name,keepRootIfSame){if(!W.files.has(name))return;W.active=name;updateSub();renderRail();renderOutline();
   $('outlinebar').classList.toggle('show',curView==='outline');
   if(curView==='diagram'&&!keepRootIfSame){curRoot=null;var E=allEntries().filter(function(e){return e.file===name;});
@@ -4420,15 +4420,21 @@ function afterWorkspaceChange(){renderRail();updateSub();
   if($('tabValidate').classList.contains('on'))renderValidate();
   if($('legend').classList.contains('show'))renderLegend();}
 
-function emptyHTML(){return '<div class="es"><h2>No schema loaded</h2>Add your XJustiz <b>.xsd</b> files to begin — drag them in, use “Add files”, or load the sample.'+
-  '<div class="esbtn"><button class="btn" id="esAdd"><span class="k">↥</span> Add files</button><button class="btn" id="esSample">Load DABAG sample</button></div></div>';}
+function emptyHTML(){return '<div class=”es”><h2>Kein Schema geladen</h2>Laden Sie Ihre XJustiz <b>.xsd</b>-Dateien hoch — per Drag &amp; Drop, über „Dateien hinzufügen” oder mit dem Beispiel unten.'+
+  '<div class=”esbtn”><button class=”btn” id=”esAdd”><span class=”k”>↥</span> Dateien hinzufügen</button><button class=”btn” id=”esSample”>DABAG-Beispiel laden</button></div>'+
+  '<div class=”gen-note” style=”text-align:left;margin-top:14px”><b>Kurzanleitung:</b><br>'+
+  '1. <b>Hochladen oder Version wählen</b> – .xsd-Datei hochladen oder XJustiz-Version aus dem Dropdown links auswählen.<br>'+
+  '2. <b>XML-Ansicht</b> – Schema-Struktur als aufklappbaren Baum mit Elementen, Typen und Attributen erkunden.<br>'+
+  '3. <b>Diagramm</b> – Element oder Typ als interaktives Verbindungsdiagramm visualisieren.<br>'+
+  '4. <b>Generieren</b> – Wurzelelement wählen, Felder ausfüllen und eine gültige XJustiz-XML-Nachricht erstellen. Mit „Testdaten ausfüllen” werden alle Felder automatisch befüllt; das Ergebnis kann kopiert oder direkt heruntergeladen werden.</div>'+
+  '</div>';}
 function wireEmpty(scope){var a=scope.querySelector('#esAdd'),s=scope.querySelector('#esSample');
   if(a)a.onclick=function(){$('file').click();};if(s)s.onclick=loadSample;}
 function renderEmptyAll(){outline.innerHTML=emptyHTML();wireEmpty(outline);
-  $('outlinebar').classList.remove('show');showDiagramEmpty();$('genForm').innerHTML='<div class="gen-note">Load a schema to generate messages.</div>';$('genXml').textContent='';
-  $('paneInspect').classList.add('empty');$('paneInspect').innerHTML='<div>Load a schema, then select a node to inspect it.</div>';
+  $('outlinebar').classList.remove('show');showDiagramEmpty();$('genForm').innerHTML='<div class="gen-note">Schema laden, um Nachrichten zu generieren.</div>';$('genXml').textContent='';
+  $('paneInspect').classList.add('empty');$('paneInspect').innerHTML='<div>Schema laden, dann einen Knoten auswählen, um ihn zu inspizieren.</div>';
   $('vcount').textContent='';combo&&(combo.value='');}
-function showDiagramEmpty(){diagram.innerHTML=W.files.size?'<div class="es">Pick an element or type from the bar above to diagram it.</div>':emptyHTML();
+function showDiagramEmpty(){diagram.innerHTML=W.files.size?'<div class="es">Element oder Typ aus der Leiste oben auswählen, um es zu diagrammieren.</div>':emptyHTML();
   while(svg.firstChild)svg.removeChild(svg.firstChild);wireEmpty(diagram);}
 
 /* ============== outline search / expand ============== */
@@ -4481,27 +4487,27 @@ diagwrap.addEventListener('wheel',function(e){
 $('printBtn').onclick=function(){var z=zoom;zoom=1;applyZoom();window.print();zoom=z;applyZoom();};
 
 /* ============== contextual legend ============== */
-function renderLegend(){var v=curView,h='<h4>Legend — '+(v==='diagram'?'Diagram':v==='generate'?'Generate':'Outline')+'</h4>';
+function renderLegend(){var v=curView,h='<h4>Legende — '+(v==='diagram'?'Diagramm':v==='generate'?'Generieren':'XML-Ansicht')+'</h4>';
   function li(sw,t){return '<div class="li">'+sw+' '+t+'</div>';}
   function dot(c){return '<span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:var('+c+');flex:0 0 auto"></span>';}
   if(v==='diagram'){
-    h+=li('<span class="sw"></span>','element (required)')+li('<span class="sw dash"></span>','optional · minOccurs 0')
-     +li(glyph('sequence'),'sequence — in order')+li(glyph('choice'),'choice — one of')
-     +li('<span class="sw any"></span>','any (wildcard)')+li('<span class="sw attr"></span>','attribute')
-     +li('<span class="mono" style="border:1.4px solid #9b9070;border-radius:3px;padding:0 4px">+</span>','expand model deeper')
-     +li('<span class="gtype miss" style="font-size:10px">↗ Type</span>','type from another file (or not loaded)');
+    h+=li('<span class="sw"></span>','Element (Pflichtfeld)')+li('<span class="sw dash"></span>','Optional · minOccurs 0')
+     +li(glyph('sequence'),'Sequenz — in Reihenfolge')+li(glyph('choice'),'Auswahl — eines von')
+     +li('<span class="sw any"></span>','Beliebig (Platzhalter)')+li('<span class="sw attr"></span>','Attribut')
+     +li('<span class="mono" style="border:1.4px solid #9b9070;border-radius:3px;padding:0 4px">+</span>','Modell tiefer erweitern')
+     +li('<span class="gtype miss" style="font-size:10px">↗ Typ</span>','Typ aus anderer Datei (oder nicht geladen)');
   } else if(v==='generate'){
-    h+=li('<input type="checkbox" checked disabled style="width:14px;height:14px">','tick = include optional part')
-     +li('<span class="gbranch">choice ▾</span>','dropdown = pick a choice branch')
-     +li('<span class="gbtn">+ add</span>','repeat element (maxOccurs &gt; 1)')
-     +li(dot('--accent'),'enum field = pick allowed value')
-     +li('<span class="gflag">not loaded</span>','red = type needs a dependency file');
+    h+=li('<input type="checkbox" checked disabled style="width:14px;height:14px">','Häkchen = optionalen Teil einschließen')
+     +li('<span class="gbranch">Auswahl ▾</span>','Dropdown = Auswahlzweig wählen')
+     +li('<span class="gbtn">+ hinzufügen</span>','Element wiederholen (maxOccurs &gt; 1)')
+     +li(dot('--accent'),'Enum-Feld = erlaubten Wert wählen')
+     +li('<span class="gflag">nicht geladen</span>','Rot = Typ benötigt eine Abhängigkeitsdatei');
   } else {
-    h+=li(dot('--c-element'),'element')+li(dot('--c-complex'),'complexType / simpleType')
-     +li(dot('--c-seq'),'sequence / all')+li(dot('--c-choice'),'choice')+li(dot('--c-attr'),'attribute')
-     +li(dot('--c-key'),'key / keyref / unique')+li(dot('--c-imp'),'include / import')
-     +li('<span class="ochip ref" style="font-size:10px">type ↗</span>','click a gold chip to jump to its definition')
-     +li('<span class="ochip miss" style="font-size:10px">type ⚠</span>','red chip = type not in workspace');
+    h+=li(dot('--c-element'),'Element')+li(dot('--c-complex'),'Komplexer / Einfacher Typ')
+     +li(dot('--c-seq'),'Sequenz / Alle')+li(dot('--c-choice'),'Auswahl')+li(dot('--c-attr'),'Attribut')
+     +li(dot('--c-key'),'Schlüssel / Schlüsselreferenz / Eindeutig')+li(dot('--c-imp'),'Einschließen / Importieren')
+     +li('<span class="ochip ref" style="font-size:10px">Typ ↗</span>','Gold-Chip anklicken, um zur Definition zu springen')
+     +li('<span class="ochip miss" style="font-size:10px">Typ ⚠</span>','Roter Chip = Typ nicht im Arbeitsbereich');
   }
   $('legend').innerHTML=h;}
 
@@ -4527,16 +4533,16 @@ function bulkIngest(files){var added=0,bad=[];
   afterWorkspaceChange();
   return{added:added,bad:bad};}
 function loadVersion(ver){if(!ver)return;var b=SCHEMA_BASE+ver+'/';
-  setVerStatus('Loading XJustiz '+ver+' …');
+  setVerStatus('Lade XJustiz '+ver+' …');
   fetch(b+'manifest.json').then(function(r){if(!r.ok)throw new Error('manifest.json '+r.status);return r.json();})
-    .then(function(list){if(!Array.isArray(list)||!list.length)throw new Error('manifest empty');
-      setVerStatus('Loading '+list.length+' files for '+ver+' …');
+    .then(function(list){if(!Array.isArray(list)||!list.length)throw new Error('manifest leer');
+      setVerStatus('Lade '+list.length+' Dateien für '+ver+' …');
       return Promise.all(list.map(function(name){return fetch(b+encodeURIComponent(name))
         .then(function(r){if(!r.ok)throw new Error(name+' '+r.status);return r.text();})
         .then(function(text){return{name:name,text:text};});}));})
     .then(function(files){var res=bulkIngest(files);
-      setVerStatus('Loaded XJustiz '+ver+' — '+res.added+' schema'+(res.added!==1?'s':'')+(res.bad.length?' ('+res.bad.length+' skipped)':''),'ok');})
-    .catch(function(e){setVerStatus('Could not load '+ver+': '+e.message+'. Serve the app over http(s) with a schemas/'+ver+'/ folder.',true);});}
+      setVerStatus('XJustiz '+ver+' geladen — '+res.added+' Schema'+(res.added!==1?'ta':'')+(res.bad.length?' ('+res.bad.length+' übersprungen)':''),'ok');})
+    .catch(function(e){setVerStatus('XJustiz '+ver+' konnte nicht geladen werden: '+e.message+'. App über http(s) mit einem schemas/'+ver+'/-Ordner bereitstellen.',true);});}
 $('verSel').onchange=function(){var v=$('verSel').value;if(v)loadVersion(v);$('verSel').value='';};
 
 $('loadBtn').onclick=function(){$('file').click();};
@@ -4699,33 +4705,33 @@ function describeType(dt){
   if(dt.cls==='builtin')return strip(dt.name);
   if(dt.cls==='simple'){var ty=dt.node&&dt.node.getAttribute('name');if(ty)return strip(ty);var ty2=dt.node&&dt.node.getAttribute('type');return ty2?strip(ty2):'(simple)';}
   if(dt.cls==='complex')return 'complexType';
-  if(dt.cls==='unresolved')return dt.name+' (not loaded)';
+  if(dt.cls==='unresolved')return dt.name+' (nicht geladen)';
   return '';
 }
 function titleFromDocs(node){var docs=docOf(node);return docs.length?docs[0]:'';}
 function fieldTooltip(st,partCtx){
-  var req=partCtx&&partCtx.ps&&partCtx.ps.min===0?'optional':'required';
+  var req=partCtx&&partCtx.ps&&partCtx.ps.min===0?'optional':'erforderlich';
   var dt=declType(st.decl);
   var desc='';
-  if(st.unresolved){desc='Type '+st.unresolvedName+' not loaded.';}
-  else if(st.leaf){desc='Type '+describeType(dt)+'.';}
-  else if(st.group){desc='Group '+(st.group.comp||'').toUpperCase()+' content.';}
-  else{desc='Complex content.';}
+  if(st.unresolved){desc='Typ '+st.unresolvedName+' nicht geladen.';}
+  else if(st.leaf){desc='Typ '+describeType(dt)+'.';}
+  else if(st.group){desc='Gruppe '+(st.group.comp||'').toUpperCase()+' Inhalt.';}
+  else{desc='Komplexer Inhalt.';}
   var docs=titleFromDocs(st.decl);
   return st.name+': '+desc+' '+req+(docs?' — '+docs:'');
 }
 function attrTooltip(a){
   var dt=classify(a.node,a.type);
-  var req=a.use==='required'?'required':'optional';
+  var req=a.use==='required'?'erforderlich':'optional';
   var docs=titleFromDocs(a.node);
-  return '@'+a.name+': type '+describeType(dt)+'. '+req+(docs?' — '+docs:'');
+  return '@'+a.name+': Typ '+describeType(dt)+'. '+req+(docs?' — '+docs:'');
 }
 function valueInput(st){var dt=declType(st.decl);var f=(dt.cls==='simple'&&dt.node)?facets(dt.node):null;
   var tooltip=fieldTooltip(st,null);
   if(f&&f.enum.length){var s=el('select','gval enum');f.enum.forEach(function(v){var o=el('option',null,v);o.value=v;if(v===st.value)o.selected=true;s.appendChild(o);});
     s.title=tooltip;
     s.onchange=function(){st.value=s.value;updateXml();};return s;}
-  var i=el('input','gval');i.value=st.value;if(st.unresolved)i.placeholder='(load schema to complete)';
+  var i=el('input','gval');i.value=st.value;if(st.unresolved)i.placeholder='(Schema laden, um auszufüllen)';
   i.title=tooltip;
   i.oninput=function(){st.value=i.value;updateXml();};return i;}
 function attrField(a){var s=el('span','gattr');var inp=el('input');
@@ -4738,15 +4744,15 @@ function attrField(a){var s=el('span','gattr');var inp=el('input');
   inp.oninput=function(){a.value=inp.value;updateXml();};s.appendChild(inp);return s;}
 
 function renderGenForm(){var f=$('genForm');f.innerHTML='';
-  if(!GEN.state){f.innerHTML='<div class="gen-note">No message type available — load a schema with a global element.</div>';$('genXml').textContent='';return;}
+  if(!GEN.state){f.innerHTML='<div class="gen-note">Kein Nachrichtentyp verfügbar — Schema mit einem globalen Element laden.</div>';$('genXml').textContent='';return;}
   f.appendChild(renderElemNode(GEN.state,null,0,true));
   updateXml();
   var miss=genMissingFiles();
   if(GEN.flags.length||miss.length){var n=el('div','gen-note');
     var parts=[];
-    if(GEN.flags.length)parts.push('⚠ '+GEN.flags.length+' element(s) reference a type that isn\'t in the workspace ('+esc(uniq(GEN.flags).slice(0,3).join(', '))+(uniq(GEN.flags).length>3?', …':'')+') — emitted as empty stubs.');
-    if(miss.length)parts.push('Add these dependency files to complete the message: <b>'+miss.map(esc).join('</b>, <b>')+'</b>.');
-    else if(GEN.flags.length)parts.push('Load the matching dependency .xsd to fill them.');
+    if(GEN.flags.length)parts.push('⚠ '+GEN.flags.length+' Element(e) referenzieren einen Typ, der nicht im Arbeitsbereich ist ('+esc(uniq(GEN.flags).slice(0,3).join(', '))+(uniq(GEN.flags).length>3?', …':'')+') — als leere Platzhalter ausgegeben.');
+    if(miss.length)parts.push('Diese Abhängigkeitsdateien hinzufügen, um die Nachricht zu vervollständigen: <b>'+miss.map(esc).join('</b>, <b>')+'</b>.');
+    else if(GEN.flags.length)parts.push('Passende .xsd-Abhängigkeitsdatei laden, um sie auszufüllen.');
     n.innerHTML=parts.join(' ');f.appendChild(n);}}
 function uniq(a){return a.filter(function(x,i){return a.indexOf(x)===i;});}
 function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row=el('div','grow');
@@ -4756,13 +4762,13 @@ function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row
   var nameEl=el('span','gname',label);
   row.appendChild(nameEl);
   row.title=fieldTooltip(st,partCtx);
-  if(st.unresolved)row.appendChild(el('span','gtype miss','↗ '+st.unresolvedName+' (not loaded)'));
-  else if(st.recursive)row.appendChild(el('span','gflag','recursive — expand manually'));
+  if(st.unresolved)row.appendChild(el('span','gtype miss','↗ '+st.unresolvedName+' (nicht geladen)'));
+  else if(st.recursive)row.appendChild(el('span','gflag','rekursiv — manuell erweitern'));
   else if(st.leaf){var tn=leafTypeName(st);if(tn)row.appendChild(el('span','gtype',tn));}
   if(st.leaf)row.appendChild(valueInput(st));
   st.attrs.forEach(function(a){row.appendChild(attrField(a));});
   if(partCtx&&partCtx.ps&&partCtx.ps.max>1&&partCtx.ps.occ.length>Math.max(partCtx.ps.min,1)){
-    var rm=el('button','gbtn','×');rm.title='remove this one';rm.onclick=function(){partCtx.ps.occ.splice(partCtx.idx,1);renderGenForm();};row.appendChild(rm);}
+    var rm=el('button','gbtn','×');rm.title='dieses entfernen';rm.onclick=function(){partCtx.ps.occ.splice(partCtx.idx,1);renderGenForm();};row.appendChild(rm);}
   wrap.appendChild(row);
   if(hasKids){var kids=el('div','gkids');renderGroup(st.group,kids,depth+1);wrap.appendChild(kids);
     var open=depth<3;kids.style.display=open?'':'none';caret.classList.toggle('open',open);
@@ -4810,7 +4816,7 @@ function serElem(st,depth,lines,isRoot){var ind=Array(depth+1).join('  ');var ta
     attrs+=' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
     if(st.ns)attrs+=' xsi:schemaLocation="'+esc(st.ns+' '+(GEN.root?GEN.root.file:''))+'"';}
   st.attrs.forEach(function(a){if(a.on)attrs+=' '+a.name+'="'+esc(a.value||'')+'"';});
-  if(st.unresolved){GEN.flags.push(st.name);lines.push(ind+'<'+tag+attrs+'/><!-- type '+st.unresolvedName+' not loaded -->');return;}
+  if(st.unresolved){GEN.flags.push(st.name);lines.push(ind+'<'+tag+attrs+'/><!-- Typ '+st.unresolvedName+' nicht geladen -->');return;}
   if(st.leaf||!st.group){if(st.value==='')lines.push(ind+'<'+tag+attrs+'/>');else lines.push(ind+'<'+tag+attrs+'>'+esc(st.value)+'</'+tag+'>');return;}
   var inner=[];serGroup(st.group,depth+1,inner);
   if(!inner.length)lines.push(ind+'<'+tag+attrs+'/>');
@@ -4821,33 +4827,33 @@ function serPart(ps,depth,lines){if(ps.kind==='element'){if(!ps.on)return;ps.occ
   else if(ps.kind==='group'){if(!ps.on)return;ps.reps.forEach(function(g){serGroup(g,depth,lines);});}}
 
 function updateXml(){GEN.xml=serializeRoot();$('genXml').textContent=GEN.xml;genValidateSilent();}
-function genStatus(cls,txt){var s=$('genStatus');s.className='genstat '+cls;s.textContent=txt;s.title=txt?'click for full validation':'';}
+function genStatus(cls,txt){var s=$('genStatus');s.className='genstat '+cls;s.textContent=txt;s.title=txt?'Klicken für vollständige Validierung':'';}
 var genIssuesDismissed=false;
 function renderGenIssues(iss){var box=$('genIssues');if(!box)return;
   if(genIssuesDismissed){box.innerHTML='';box.style.display='none';return;}
   box.style.display='';
   var errs=iss.filter(function(x){return x.sev==='error';});
   var warns=iss.filter(function(x){return x.sev==='warn';});
-  var close='<button class="gi-x" id="giClose" title="Hide — re-open from the status pill">✕</button>';var h='';
-  if(errs.length){h+='<div class="gi-h err">'+close+errs.length+' validation error'+(errs.length>1?'s':'')+'</div>';
+  var close='<button class="gi-x" id="giClose" title="Ausblenden — über Status-Pill wieder öffnen">✕</button>';var h='';
+  if(errs.length){h+='<div class="gi-h err">'+close+errs.length+' Validierungsfehler</div>';
     errs.slice(0,50).forEach(function(x){h+='<div class="gi">'+esc(x.msg)+(x.path?'<span class="gi-p">'+esc(x.path)+'</span>':'')+'</div>';});
-    if(errs.length>50)h+='<div class="gi-more" id="giMore">+ '+(errs.length-50)+' more — open full validation</div>';}
-  else if(GEN.flags.length){var miss=genMissingFiles();h+='<div class="gi-h warn">'+close+'structure valid · '+GEN.flags.length+' stub(s)'+(miss.length?' — add '+esc(miss.slice(0,4).join(', '))+(miss.length>4?', …':''):' awaiting dependency files')+'</div>';
+    if(errs.length>50)h+='<div class="gi-more" id="giMore">+ '+(errs.length-50)+' weitere — vollständige Validierung öffnen</div>';}
+  else if(GEN.flags.length){var miss=genMissingFiles();h+='<div class="gi-h warn">'+close+'Struktur gültig · '+GEN.flags.length+' Platzhalter'+(miss.length?' — hinzufügen: '+esc(miss.slice(0,4).join(', '))+(miss.length>4?', …':''):' — Abhängigkeitsdateien fehlen')+'</div>';
     warns.slice(0,8).forEach(function(x){h+='<div class="gi warn">'+esc(x.msg)+(x.path?'<span class="gi-p">'+esc(x.path)+'</span>':'')+'</div>';});}
-  else{h+='<div class="gi-h ok">'+close+'Structurally valid ✓</div>';}
+  else{h+='<div class="gi-h ok">'+close+'Strukturell gültig ✓</div>';}
   box.innerHTML=h;var m=$('giMore');if(m)m.onclick=genValidate;
   var c=$('giClose');if(c)c.onclick=function(){genIssuesDismissed=true;box.style.display='none';};}
 function genValidateSilent(){if(!GEN.xml){genStatus('','');$('genIssues').innerHTML='';return;}try{var d=new DOMParser().parseFromString(GEN.xml,'application/xml');
-  if(d.querySelector('parsererror')){genStatus('bad','not well-formed');$('genIssues').innerHTML='<div class="gi">Generated XML is not well-formed.</div>';return;}
+  if(d.querySelector('parsererror')){genStatus('bad','nicht wohlgeformt');$('genIssues').innerHTML='<div class="gi">Generiertes XML ist nicht wohlgeformt.</div>';return;}
   var iss=validateInstance(d);var ne=iss.filter(function(x){return x.sev==='error';}).length;
-  if(ne)genStatus('bad',ne+' error'+(ne>1?'s':''));
-  else if(GEN.flags.length)genStatus('warn','valid · '+GEN.flags.length+' stub(s)');
-  else genStatus('ok','valid ✓');
+  if(ne)genStatus('bad',ne+' Fehler');
+  else if(GEN.flags.length)genStatus('warn','gültig · '+GEN.flags.length+' Platzhalter');
+  else genStatus('ok','gültig ✓');
   renderGenIssues(iss);}catch(e){genStatus('','');}}
 function genValidate(){if(!GEN.xml)updateXml();var d=new DOMParser().parseFromString(GEN.xml,'application/xml');var inst;
-  if(d.querySelector('parsererror'))inst=[{sev:'error',msg:'Generated XML not well-formed',file:'generated'}];
+  if(d.querySelector('parsererror'))inst=[{sev:'error',msg:'Generiertes XML ist nicht wohlgeformt',file:'generiert'}];
   else inst=validateInstance(d).map(function(x){x.file='generated.xml';return x;});
-  lastInstance={name:'generated · '+(GEN.root?GEN.root.name:''),issues:inst};setTab('validate');renderValidate();revealRight();}
+  lastInstance={name:'generiert · '+(GEN.root?GEN.root.name:''),issues:inst};setTab('validate');renderValidate();revealRight();}
 
 function genEntries(){var out=[];W.files.forEach(function(rec){if(rec.error)return;eles(rec.root).forEach(function(c){if(ln(c)==='element'&&c.getAttribute('name'))out.push({name:c.getAttribute('name'),node:c,file:rec.name});});});return out;}
 function genBuild(entry){GEN.root=entry;genIssuesDismissed=false;GEN.state=newElemState(entry.node,0,[]);renderGenForm();}
@@ -4884,7 +4890,7 @@ $('genRoot').onchange=function(){var e=GEN.entries[+$('genRoot').value];if(e)gen
 $('genValidate').onclick=genValidate;
 $('genStatus').onclick=function(){if(!GEN.xml)return;if(genIssuesDismissed){genIssuesDismissed=false;genValidateSilent();}else genValidate();};
 $('genReset').onclick=function(){if(GEN.root)genBuild(GEN.root);};
-$('genCopy').onclick=function(){if(navigator.clipboard&&GEN.xml){navigator.clipboard.writeText(GEN.xml);genStatus('ok','copied ✓');setTimeout(genValidateSilent,900);}};
+$('genCopy').onclick=function(){if(navigator.clipboard&&GEN.xml){navigator.clipboard.writeText(GEN.xml);genStatus('ok','kopiert ✓');setTimeout(genValidateSilent,900);}};
 $('genDownload').onclick=function(){if(!GEN.xml)return;var blob=new Blob([GEN.xml],{type:'application/xml'});var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);a.download='generated_'+(GEN.root?GEN.root.name:'message')+'.xml';document.body.appendChild(a);a.click();
   setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},100);};
@@ -4925,20 +4931,20 @@ function applyTPart(ps,tp){if(ps.kind==='element'&&tp.k==='e'){ps.on=tp.on;
   else ps.on=!!tp.on;}
 $('genSaveTpl').onclick=function(){if(!GEN.state||!GEN.root)return;var t={_xjwb_tpl:1,root:GEN.root.name,file:GEN.root.file,state:tplElem(GEN.state)};
   var blob=new Blob([JSON.stringify(t,null,1)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='template_'+GEN.root.name+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},100);genStatus('ok','template saved ✓');setTimeout(genValidateSilent,900);};
+  a.download='template_'+GEN.root.name+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},100);genStatus('ok','Vorlage gespeichert ✓');setTimeout(genValidateSilent,900);};
 $('genLoadTpl').onclick=function(){$('tplFile').click();};
 $('tplFile').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var t=JSON.parse(r.result);
-  var ent=GEN.entries.filter(function(en){return en.name===t.root;})[0];if(!ent){genStatus('bad','template root “'+t.root+'” not in workspace');return;}
-  genBuild(ent);$('genRoot').value=GEN.entries.indexOf(ent);applyTElem(GEN.state,t.state);renderGenForm();genStatus('ok','template loaded ✓');setTimeout(genValidateSilent,900);}
-  catch(err){genStatus('bad','could not read template');}};r.readAsText(f);e.target.value='';};
+  var ent=GEN.entries.filter(function(en){return en.name===t.root;})[0];if(!ent){genStatus('bad','Vorlage-Root “'+t.root+'” nicht im Arbeitsbereich');return;}
+  genBuild(ent);$('genRoot').value=GEN.entries.indexOf(ent);applyTElem(GEN.state,t.state);renderGenForm();genStatus('ok','Vorlage geladen ✓');setTimeout(genValidateSilent,900);}
+  catch(err){genStatus('bad','Vorlage konnte nicht gelesen werden');}};r.readAsText(f);e.target.value='';};
 
 /* open an existing XML message to edit */
 $('genOpenXml').onclick=function(){$('xmlFile').click();};
 $('xmlFile').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){openXmlForEdit(r.result,f.name);};r.readAsText(f);e.target.value='';};
-function openXmlForEdit(text,name){var d=new DOMParser().parseFromString(text,'application/xml');if(d.querySelector('parsererror')){genStatus('bad',name+' not well-formed');return;}
+function openXmlForEdit(text,name){var d=new DOMParser().parseFromString(text,'application/xml');if(d.querySelector('parsererror')){genStatus('bad',name+' nicht wohlgeformt');return;}
   var rootEl=d.documentElement;var ent=GEN.entries.filter(function(en){var sym=(W.symbols.get((rootEl.namespaceURI||'')+'|'+ln(rootEl))||[])[0];return en.name===ln(rootEl);})[0];
-  if(!ent){genStatus('bad','no matching root <'+ln(rootEl)+'> in workspace');return;}
-  genBuild(ent);$('genRoot').value=GEN.entries.indexOf(ent);reconElem(GEN.state,rootEl);renderGenForm();genStatus('warn','loaded '+name+' — review & edit');setTimeout(genValidateSilent,900);}
+  if(!ent){genStatus('bad','Kein passendes Root-Element <'+ln(rootEl)+'> im Arbeitsbereich');return;}
+  genBuild(ent);$('genRoot').value=GEN.entries.indexOf(ent);reconElem(GEN.state,rootEl);renderGenForm();genStatus('warn',name+' geladen — bitte prüfen & bearbeiten');setTimeout(genValidateSilent,900);}
 function reconElem(st,instEl){if(st.attrs)st.attrs.forEach(function(a){var v=instEl.getAttribute(a.name);if(v!=null){a.on=true;a.value=v;}else if(a.use!=='required')a.on=false;});
   if(st.leaf){st.value=dtext(instEl);return;}
   if(st.group)reconGroup(st.group,eles(instEl),{i:0});}
