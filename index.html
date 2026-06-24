@@ -4776,8 +4776,10 @@ function renderGenForm(){var f=$('genForm');f.innerHTML='';
 function uniq(a){return a.filter(function(x,i){return a.indexOf(x)===i;});}
 function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row=el('div','grow');
   var hasKids=!!st.group;var caret=el('span','gcaret'+(hasKids?'':' none'),hasKids?'▶':'');
-  var slot=el('span','gslot');slot.appendChild(caret);
-  if(partCtx&&partCtx.optional){var cb=el('input','gchk');cb.type='checkbox';cb.checked=partCtx.ps.on;cb.onchange=function(){togglePart(partCtx.ps);renderGenForm();};slot.appendChild(cb);}
+  var slot=el('span','gslot');
+  if(partCtx&&partCtx.optional){var cb=el('input','gchk');cb.type='checkbox';cb.checked=partCtx.ps.on;cb.onchange=function(){togglePart(partCtx.ps);renderGenForm();};
+    if(hasKids){slot.appendChild(caret);slot.appendChild(cb);}else{slot.appendChild(cb);}}
+  else{slot.appendChild(caret);}
   row.appendChild(slot);
   var label=st.name+(partCtx&&partCtx.ps&&partCtx.ps.occ&&partCtx.ps.occ.length>1?' ['+(partCtx.idx+1)+']':'');
   var nameEl=el('span','gname',label);
