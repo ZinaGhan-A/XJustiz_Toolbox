@@ -197,6 +197,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 .gi{font-size:12px;line-height:1.4;border-left:3px solid var(--err);background:var(--errbg);border-radius:6px;padding:6px 9px;margin-bottom:5px}
 .gi.warn{border-left-color:var(--warn);background:var(--warnbg)}
 .gi .gi-p{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);margin-top:2px}
+.gi-ln{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;background:var(--err);color:#fff;border-radius:3px;padding:0 4px;margin-right:5px;line-height:1.5}
 .gi-more{font-size:11px;color:var(--accent);cursor:pointer;text-decoration:underline}
 .genstat.ok{background:var(--okbg);color:var(--ok)}.genstat.bad{background:var(--errbg);color:var(--err)}.genstat.warn{background:var(--warnbg);color:var(--warn)}
 #genview{flex:1 1 auto;display:none;min-height:0}#genview.show{display:flex}
@@ -204,7 +205,9 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 .gen-xml{flex:1 1 50%;display:flex;flex-direction:column;overflow:hidden;background:#fbfaf5;border-left:1px solid var(--bd2);min-width:0}
 .gen-xml-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 12px;border-bottom:1px solid var(--bd2);background:#f2f0e8;flex:0 0 auto}
 .gen-xml-label{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
-#genXml{flex:1 1 auto;width:100%;border:0;background:#fbfaf5;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.5;color:#3a3a30;padding:14px 18px 70px;resize:none;outline:none;white-space:pre;overflow:auto;tab-size:2}
+.gen-xml-body{display:flex;flex:1 1 auto;overflow:hidden}
+#genXmlGutter{width:38px;flex:0 0 38px;background:#ede9da;border-right:1px solid var(--bd2);font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.5;padding:14px 5px 70px 0;text-align:right;color:var(--faint);overflow:hidden;user-select:none;white-space:pre}
+#genXml{flex:1 1 auto;width:100%;border:0;background:#fbfaf5;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.5;color:#3a3a30;padding:14px 18px 70px 12px;resize:none;outline:none;white-space:pre;overflow:auto;tab-size:2}
 .split-btn{position:relative;display:inline-flex}
 .split-btn .dropdown{left:0;right:auto;min-width:180px}
 .gfield{margin:1px 0}
@@ -215,7 +218,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 .gcaret.open{transform:rotate(90deg)}.gcaret.none{visibility:hidden}
 .gname{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:600;color:var(--c-element)}
 .gname.comp{color:var(--comp-ink);font-weight:500;font-style:italic}
-.gchk{width:14px;height:14px;flex:0 0 auto;accent-color:var(--accent)}
+.gchk{width:14px;height:14px;flex:0 0 auto;accent-color:var(--accent);margin-left:auto}
 .gtype{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--faint)}
 .gtype.miss{color:var(--err)}
 .gval{flex:1 1 120px;max-width:280px;font-family:"IBM Plex Mono",monospace;font-size:12px;padding:4px 8px;border:1px solid var(--bd);border-radius:6px;background:#fff;color:var(--ink)}
@@ -226,7 +229,6 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 .gbtn{font-size:11px;border:1px solid var(--bd);background:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;color:var(--muted);font-weight:600}
 .gbtn:hover{border-color:var(--accent);color:var(--ink)}
 .gcount{font-size:10px;color:var(--faint);font-family:"IBM Plex Mono",monospace}
-.grow:has(.gchk){border-left:2px solid var(--bd);margin-left:2px;padding-left:4px;border-radius:0}
 .gattr{display:inline-flex;align-items:center;gap:5px;margin-left:6px;font-size:11px}
 .gattr .an{color:var(--attr-ink);font-family:"IBM Plex Mono",monospace}
 .gattr input{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:2px 6px;border:1px solid var(--attr-bd);border-radius:5px;width:110px;background:#fff}
@@ -367,7 +369,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
          <input id="tplFile" type="file" accept=".json,application/json" hidden>
          <input id="xmlFile" type="file" accept=".xml,text/xml,application/xml" hidden>
       </div>
-    <div id="genview"><div class="gen-form" id="genForm"></div><div class="gen-xml"><div class="gen-xml-bar"><span class="gen-xml-label">XML-Ausgabe</span><button class="btn" id="genApplyXml" style="font-size:11px;padding:3px 9px" title="Bearbeitetes XML in das Formular übernehmen">← Aus XML übernehmen</button></div><div id="genIssues" class="gen-issues"></div><textarea id="genXml" spellcheck="false"></textarea></div></div>
+    <div id="genview"><div class="gen-form" id="genForm"></div><div class="gen-xml"><div class="gen-xml-bar"><span class="gen-xml-label">XML-Ausgabe</span><button class="btn" id="genApplyXml" style="font-size:11px;padding:3px 9px" title="Bearbeitetes XML in das Formular übernehmen">← Aus XML übernehmen</button></div><div id="genIssues" class="gen-issues"></div><div class="gen-xml-body"><div id="genXmlGutter" aria-hidden="true"></div><textarea id="genXml" spellcheck="false"></textarea></div></div></div>
   </div>
 
   <aside class="right" id="right">
@@ -4773,7 +4775,7 @@ function renderGenForm(){var f=$('genForm');f.innerHTML='';
 function uniq(a){return a.filter(function(x,i){return a.indexOf(x)===i;});}
 function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row=el('div','grow');
   var hasKids=!!st.group;var caret=el('span','gcaret'+(hasKids?'':' none'),hasKids?'▶':'');row.appendChild(caret);
-  if(partCtx&&partCtx.optional){var cb=el('input','gchk');cb.type='checkbox';cb.checked=partCtx.ps.on;cb.onchange=function(){togglePart(partCtx.ps);renderGenForm();};row.appendChild(cb);}
+  var cb=null;if(partCtx&&partCtx.optional){cb=el('input','gchk');cb.type='checkbox';cb.checked=partCtx.ps.on;cb.onchange=function(){togglePart(partCtx.ps);renderGenForm();};}
   var label=st.name+(partCtx&&partCtx.ps&&partCtx.ps.occ&&partCtx.ps.occ.length>1?' ['+(partCtx.idx+1)+']':'');
   var nameEl=el('span','gname',label);
   row.appendChild(nameEl);
@@ -4783,6 +4785,7 @@ function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row
   else if(st.leaf){var tn=leafTypeName(st);if(tn)row.appendChild(el('span','gtype',tn));}
   if(st.leaf)row.appendChild(valueInput(st));
   st.attrs.forEach(function(a){row.appendChild(attrField(a));});
+  if(cb)row.appendChild(cb);
   if(partCtx&&partCtx.ps&&partCtx.ps.max>1&&partCtx.ps.occ.length>Math.max(partCtx.ps.min,1)){
     var rm=el('button','gbtn','×');rm.title='dieses entfernen';rm.onclick=function(){partCtx.ps.occ.splice(partCtx.idx,1);renderGenForm();};row.appendChild(rm);}
   wrap.appendChild(row);
@@ -4842,23 +4845,42 @@ function serGroup(gs,depth,lines){if(gs.comp==='choice'){var bp=gs.parts[gs.bran
 function serPart(ps,depth,lines){if(ps.kind==='element'){if(!ps.on)return;ps.occ.forEach(function(st){serElem(st,depth,lines,false);});}
   else if(ps.kind==='group'){if(!ps.on)return;ps.reps.forEach(function(g){serGroup(g,depth,lines);});}}
 
-function updateXml(){GEN.xml=serializeRoot();$('genXml').value=GEN.xml;genValidateSilent();}
+function updateXml(){GEN.xml=serializeRoot();$('genXml').value=GEN.xml;updateGutter([]);genValidateSilent();}
 function genStatus(cls,txt){var s=$('genStatus');s.className='genstat '+cls;s.textContent=txt;s.title=txt?'Klicken für vollständige Validierung':'';}
 var genIssuesDismissed=false;
+function pathToLine(path,xml){if(!path||!xml)return -1;var parts=path.split('/').filter(Boolean);if(!parts.length)return -1;
+  var raw=parts[parts.length-1];var m=raw.match(/^(.+)\[(\d+)\]$/);var tag=m?m[1]:raw;var nth=m?parseInt(m[2])-1:0;
+  var re=new RegExp('<'+tag+'[\\s>/]','g');var match,count=0;
+  while((match=re.exec(xml))!==null){if(count===nth)return xml.substring(0,match.index).split('\n').length;count++;}return -1;}
+function scrollTextareaToLine(ta,lineNum){var lines=ta.value.split('\n');if(lineNum>lines.length)return;
+  var before=lines.slice(0,lineNum-1).join('\n');var lineStart=before.length+(lineNum>1?1:0);var lineEnd=lineStart+lines[lineNum-1].length;
+  ta.focus();ta.setSelectionRange(lineStart,lineEnd);
+  var lh=parseFloat(getComputedStyle(ta).lineHeight)||18;ta.scrollTop=Math.max(0,(lineNum-4)*lh);}
+function updateGutter(errorLines){var ta=$('genXml'),g=$('genXmlGutter');if(!g||!ta.value)return;
+  var total=(ta.value.match(/\n/g)||[]).length+1;var errSet={};(errorLines||[]).forEach(function(l){if(l>0)errSet[l]=true;});
+  var html='';for(var i=1;i<=total;i++)html+=(errSet[i]?'<span style="color:var(--err);font-weight:700">●</span>':i)+'\n';
+  g.innerHTML=html;g.scrollTop=ta.scrollTop;}
 function renderGenIssues(iss){var box=$('genIssues');if(!box)return;
-  if(genIssuesDismissed){box.innerHTML='';box.style.display='none';return;}
+  if(genIssuesDismissed){box.innerHTML='';box.style.display='none';updateGutter([]);return;}
   box.style.display='';
   var errs=iss.filter(function(x){return x.sev==='error';});
   var warns=iss.filter(function(x){return x.sev==='warn';});
   var close='<button class="gi-x" id="giClose" title="Ausblenden — über Status-Pill wieder öffnen">✕</button>';var h='';
+  var errLines=[];
+  function issItem(x,cls){var ln=pathToLine(x.path,$('genXml').value);if(ln>0)errLines.push(ln);
+    return '<div class="gi'+(cls?' '+cls:'')+'"'+(x.path?' data-path="'+esc(x.path)+'"':'')+' style="cursor:'+(x.path?'pointer':'default')+'">'
+      +(ln>0?'<span class="gi-ln">Z.'+ln+'</span>':'')+esc(x.msg)+(x.path?'<span class="gi-p">'+esc(x.path)+'</span>':'')+'</div>';}
   if(errs.length){h+='<div class="gi-h err">'+close+errs.length+' Validierungsfehler</div>';
-    errs.slice(0,50).forEach(function(x){h+='<div class="gi">'+esc(x.msg)+(x.path?'<span class="gi-p">'+esc(x.path)+'</span>':'')+'</div>';});
+    errs.slice(0,50).forEach(function(x){h+=issItem(x,'');});
     if(errs.length>50)h+='<div class="gi-more" id="giMore">+ '+(errs.length-50)+' weitere — vollständige Validierung öffnen</div>';}
   else if(GEN.flags.length){var miss=genMissingFiles();h+='<div class="gi-h warn">'+close+'Struktur gültig · '+GEN.flags.length+' Platzhalter'+(miss.length?' — hinzufügen: '+esc(miss.slice(0,4).join(', '))+(miss.length>4?', …':''):' — Abhängigkeitsdateien fehlen')+'</div>';
-    warns.slice(0,8).forEach(function(x){h+='<div class="gi warn">'+esc(x.msg)+(x.path?'<span class="gi-p">'+esc(x.path)+'</span>':'')+'</div>';});}
+    warns.slice(0,8).forEach(function(x){h+=issItem(x,'warn');});}
   else{h+='<div class="gi-h ok">'+close+'Strukturell gültig ✓</div>';}
   box.innerHTML=h;var m=$('giMore');if(m)m.onclick=genValidate;
-  var c=$('giClose');if(c)c.onclick=function(){genIssuesDismissed=true;box.style.display='none';};}
+  var c=$('giClose');if(c)c.onclick=function(){genIssuesDismissed=true;box.style.display='none';updateGutter([]);};
+  box.querySelectorAll('.gi[data-path]').forEach(function(el){el.onclick=function(){
+    var ln=pathToLine(el.dataset.path,$('genXml').value);if(ln>0)scrollTextareaToLine($('genXml'),ln);};});
+  updateGutter(errLines);}
 function genValidateSilent(){if(!GEN.xml){genStatus('','');$('genIssues').innerHTML='';return;}try{var d=new DOMParser().parseFromString(GEN.xml,'application/xml');
   if(d.querySelector('parsererror')){genStatus('bad','nicht wohlgeformt');$('genIssues').innerHTML='<div class="gi">Generiertes XML ist nicht wohlgeformt.</div>';return;}
   var iss=validateInstance(d);var ne=iss.filter(function(x){return x.sev==='error';}).length;
@@ -4930,6 +4952,7 @@ $('genUUID').onclick=function(){var id=crypto.randomUUID?crypto.randomUUID():'xx
 
 /* apply manually edited XML back to form */
 $('genApplyXml').onclick=function(){var xml=$('genXml').value.trim();if(xml)openXmlForEdit(xml,'bearbeitet');};
+$('genXml').addEventListener('scroll',function(){var g=$('genXmlGutter');if(g)g.scrollTop=this.scrollTop;});
 // Auto-fill test data: enable optional parts and populate values/attributes using existing sample helpers
 // Walk the *currently enabled* skeleton and populate values + required attributes.
 // (Does NOT recursively enable every optional part — on XJustiz that explodes into
