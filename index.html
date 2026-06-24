@@ -201,8 +201,12 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 .genstat.ok{background:var(--okbg);color:var(--ok)}.genstat.bad{background:var(--errbg);color:var(--err)}.genstat.warn{background:var(--warnbg);color:var(--warn)}
 #genview{flex:1 1 auto;display:none;min-height:0}#genview.show{display:flex}
 .gen-form{flex:1 1 50%;overflow:auto;padding:14px clamp(10px,1.6vw,18px) 70px;min-width:0}
-.gen-xml{flex:1 1 50%;overflow:auto;background:#fbfaf5;border-left:1px solid var(--bd2);min-width:0}
-.gen-xml pre{margin:0;padding:16px 18px 70px;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.5;color:#3a3a30;white-space:pre;tab-size:2}
+.gen-xml{flex:1 1 50%;display:flex;flex-direction:column;overflow:hidden;background:#fbfaf5;border-left:1px solid var(--bd2);min-width:0}
+.gen-xml-bar{display:flex;align-items:center;justify-content:space-between;padding:5px 12px;border-bottom:1px solid var(--bd2);background:#f2f0e8;flex:0 0 auto}
+.gen-xml-label{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+#genXml{flex:1 1 auto;width:100%;border:0;background:#fbfaf5;font-family:"IBM Plex Mono",monospace;font-size:12px;line-height:1.5;color:#3a3a30;padding:14px 18px 70px;resize:none;outline:none;white-space:pre;overflow:auto;tab-size:2}
+.split-btn{position:relative;display:inline-flex}
+.split-btn .dropdown{left:0;right:auto;min-width:180px}
 .gfield{margin:1px 0}
 .grow{display:flex;align-items:center;gap:8px;padding:3px 6px;border-radius:7px;min-height:30px}
 .grow:hover{background:#faf7ef}
@@ -222,6 +226,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
 .gbtn{font-size:11px;border:1px solid var(--bd);background:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;color:var(--muted);font-weight:600}
 .gbtn:hover{border-color:var(--accent);color:var(--ink)}
 .gcount{font-size:10px;color:var(--faint);font-family:"IBM Plex Mono",monospace}
+.grow:has(.gchk){border-left:2px solid var(--bd);margin-left:2px;padding-left:4px;border-radius:0}
 .gattr{display:inline-flex;align-items:center;gap:5px;margin-left:6px;font-size:11px}
 .gattr .an{color:var(--attr-ink);font-family:"IBM Plex Mono",monospace}
 .gattr input{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:2px 6px;border:1px solid var(--attr-bd);border-radius:5px;width:110px;background:#fff}
@@ -293,7 +298,6 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
     <button class="btn" id="rightToggle"><span class="k">◨</span> Inspektor</button>
     <button class="btn" id="validateBtn"><span class="k">✓</span> Validieren</button>
     <button class="btn" id="legendBtn"><span class="k">◑</span> Legende</button>
-    <button class="btn" id="loadBtn"><span class="k">↥</span> Dateien hinzufügen</button>
     <input id="file" type="file" accept=".xml,.xsd,.wsdl,text/xml,application/xml" multiple hidden>
   </div>
 </header>
@@ -333,6 +337,7 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
       </div>
       <button class="btn" id="collapseBtn"><span class="k">⊟</span> Einklappen</button>
       <button class="btn" id="printBtn"><span class="k">⎙</span> Drucken / PDF</button>
+      <button class="btn" id="diagNewWin" title="Diagramm in neuem Fenster öffnen"><span class="k">⧉</span></button>
     </div>
     <div id="outline" class="show"></div>
     <div id="diagwrap"><div class="canvas-inner" id="inner"><svg id="svg"></svg><div id="diagram"></div></div></div>
@@ -340,18 +345,29 @@ header{flex:0 0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;pad
          <select id="genRoot" class="gen-select"></select>
          <span id="genStatus" class="genstat"></span>
          <div class="spacer"></div>
-         <button class="btn" id="genOpenXml"><span class="k">↥</span> XML öffnen</button>
-         <button class="btn" id="genLoadTpl"><span class="k">⌬</span> Vorlage laden</button>
-         <button class="btn" id="genSaveTpl"><span class="k">⌬</span> Vorlage speichern</button>
+         <div class="split-btn">
+           <button class="btn" id="genOpenMain"><span class="k">↥</span> Öffnen ▾</button>
+           <div class="dropdown" id="genOpenDd">
+             <div class="dd-item" id="ddOpenXml">XML-Datei öffnen</div>
+             <div class="dd-item" id="ddLoadTpl">Vorlage (JSON) laden</div>
+           </div>
+         </div>
+         <div class="split-btn">
+           <button class="btn" id="genSaveMain"><span class="k">↧</span> Speichern ▾</button>
+           <div class="dropdown" id="genSaveDd">
+             <div class="dd-item" id="ddSaveXml">XML herunterladen</div>
+             <div class="dd-item" id="ddSaveTpl">Vorlage (JSON) speichern</div>
+           </div>
+         </div>
          <button class="btn" id="genValidate"><span class="k">✓</span> XML prüfen</button>
          <button class="btn" id="genCopy"><span class="k">⧉</span> Kopieren</button>
-         <button class="btn" id="genDownload"><span class="k">↧</span> Herunterladen</button>
+         <button class="btn" id="genUUID" title="Neue UUID generieren und in Zwischenablage kopieren">UUID</button>
          <button class="btn" id="genAutofill" title="Alle Felder mit zufälligen Testdaten füllen — erneut klicken für neue Werte"><span class="k">✱</span> Testdaten ausfüllen</button>
          <button class="btn" id="genReset" title="Alle Felder auf leeres Gerüst zurücksetzen (feste/Standard-Werte bleiben)"><span class="k">↺</span> Zurücksetzen</button>
          <input id="tplFile" type="file" accept=".json,application/json" hidden>
          <input id="xmlFile" type="file" accept=".xml,text/xml,application/xml" hidden>
       </div>
-    <div id="genview"><div class="gen-form" id="genForm"></div><div class="gen-xml"><div id="genIssues" class="gen-issues"></div><pre id="genXml"></pre></div></div>
+    <div id="genview"><div class="gen-form" id="genForm"></div><div class="gen-xml"><div class="gen-xml-bar"><span class="gen-xml-label">XML-Ausgabe</span><button class="btn" id="genApplyXml" style="font-size:11px;padding:3px 9px" title="Bearbeitetes XML in das Formular übernehmen">← Aus XML übernehmen</button></div><div id="genIssues" class="gen-issues"></div><textarea id="genXml" spellcheck="false"></textarea></div></div>
   </div>
 
   <aside class="right" id="right">
@@ -4003,8 +4019,8 @@ function inspect(node,opts){opts=opts||{};
   h+='</div>';
   pane.innerHTML=h;
   pane.querySelectorAll('[data-goto]').forEach(function(el){el.onclick=function(){gotoType(el.dataset.goto,el.dataset.file);};});
-  pane.querySelectorAll('[data-diag]').forEach(function(el){el.onclick=function(){diagramType(el.dataset.diag);};});
-  pane.querySelectorAll('[data-diagel]').forEach(function(el){el.onclick=function(){diagramElement(el.dataset.diagel,el.dataset.elfile);};});
+  pane.querySelectorAll('[data-diag]').forEach(function(el){el.onclick=function(){setView('diagram');setRoot({kind:'type',name:el.dataset.diag,node:node});};});
+  pane.querySelectorAll('[data-diagel]').forEach(function(el){el.onclick=function(){setView('diagram');setRoot({kind:'element',name:el.dataset.diagel,node:node});};});
 }
 function pathOf(n){var parts=[],cur=n;while(cur&&cur.nodeType===1&&ln(cur)!=='schema'){var l=ln(cur),nm=cur.getAttribute&&cur.getAttribute('name');
   parts.unshift(esc(l)+(nm?' <b>'+esc(nm)+'</b>':''));cur=cur.parentNode;}return 'schema'+(parts.length?'<span class="sep"> / </span>':'')+parts.join('<span class="sep"> / </span>');}
@@ -4485,6 +4501,7 @@ diagwrap.addEventListener('wheel',function(e){
    }
 },{passive:false});
 $('printBtn').onclick=function(){var z=zoom;zoom=1;applyZoom();window.print();zoom=z;applyZoom();};
+$('diagNewWin').onclick=function(){var style=document.querySelector('style').textContent;var body=document.getElementById('diagwrap').outerHTML;var w=window.open('','_blank','width=1200,height=800');if(!w){alert('Pop-up blockiert. Bitte Pop-ups für diese Seite erlauben.');return;}w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{margin:0}'+style+'</style></head><body>'+body+'</body></html>');w.document.close();};
 
 /* ============== contextual legend ============== */
 function renderLegend(){var v=curView,h='<h4>Legende — '+(v==='diagram'?'Diagramm':v==='generate'?'Generieren':'XML-Ansicht')+'</h4>';
@@ -4545,7 +4562,6 @@ function loadVersion(ver){if(!ver)return;var b=SCHEMA_BASE+ver+'/';
     .catch(function(e){setVerStatus('XJustiz '+ver+' konnte nicht geladen werden: '+e.message+'. App über http(s) mit einem schemas/'+ver+'/-Ordner bereitstellen.',true);});}
 $('verSel').onchange=function(){var v=$('verSel').value;if(v)loadVersion(v);$('verSel').value='';};
 
-$('loadBtn').onclick=function(){$('file').click();};
 $('railDrop').onclick=function(){$('file').click();};
 $('loadSample').onclick=function(e){e.stopPropagation();loadSample();};
 $('file').onchange=function(e){handleFiles(e.target.files);e.target.value='';};
@@ -4826,7 +4842,7 @@ function serGroup(gs,depth,lines){if(gs.comp==='choice'){var bp=gs.parts[gs.bran
 function serPart(ps,depth,lines){if(ps.kind==='element'){if(!ps.on)return;ps.occ.forEach(function(st){serElem(st,depth,lines,false);});}
   else if(ps.kind==='group'){if(!ps.on)return;ps.reps.forEach(function(g){serGroup(g,depth,lines);});}}
 
-function updateXml(){GEN.xml=serializeRoot();$('genXml').textContent=GEN.xml;genValidateSilent();}
+function updateXml(){GEN.xml=serializeRoot();$('genXml').value=GEN.xml;genValidateSilent();}
 function genStatus(cls,txt){var s=$('genStatus');s.className='genstat '+cls;s.textContent=txt;s.title=txt?'Klicken für vollständige Validierung':'';}
 var genIssuesDismissed=false;
 function renderGenIssues(iss){var box=$('genIssues');if(!box)return;
@@ -4886,14 +4902,34 @@ function genEnter(){GEN.entries=genEntries();var sel=$('genRoot');
   var idx=pick();sel.value=idx;
   if(!GEN.state||entryKey(GEN.root)!==entryKey(GEN.entries[idx]))genBuild(GEN.entries[idx]);
   else renderGenForm();}
-$('genRoot').onchange=function(){var e=GEN.entries[+$('genRoot').value];if(e)genBuild(e);};
+$('genRoot').onchange=function(){var e=GEN.entries[+$('genRoot').value];if(!e)return;
+  if(GEN.state){if(confirm('Wurzelelement wechseln? Alle eingegebenen Werte gehen verloren.'))genBuild(e);}else genBuild(e);};
 $('genValidate').onclick=genValidate;
 $('genStatus').onclick=function(){if(!GEN.xml)return;if(genIssuesDismissed){genIssuesDismissed=false;genValidateSilent();}else genValidate();};
 $('genReset').onclick=function(){if(GEN.root)genBuild(GEN.root);};
 $('genCopy').onclick=function(){if(navigator.clipboard&&GEN.xml){navigator.clipboard.writeText(GEN.xml);genStatus('ok','kopiert ✓');setTimeout(genValidateSilent,900);}};
-$('genDownload').onclick=function(){if(!GEN.xml)return;var blob=new Blob([GEN.xml],{type:'application/xml'});var a=document.createElement('a');
+
+/* split-button dropdowns */
+function splitDd(btnId,ddId){var btn=$('genbar').querySelector('#'+btnId),dd=$('genbar').querySelector('#'+ddId);if(!btn||!dd)return;
+  btn.onclick=function(e){e.stopPropagation();var open=dd.classList.toggle('show');if(open){var other=$('genbar').querySelectorAll('.dropdown.show');other.forEach(function(d){if(d!==dd)d.classList.remove('show');});}};
+  document.addEventListener('click',function(){dd.classList.remove('show');});}
+splitDd('genOpenMain','genOpenDd');
+splitDd('genSaveMain','genSaveDd');
+$('ddOpenXml').onclick=function(){$('xmlFile').click();};
+$('ddLoadTpl').onclick=function(){$('tplFile').click();};
+$('ddSaveXml').onclick=function(){if(!GEN.xml)return;var blob=new Blob([GEN.xml],{type:'application/xml'});var a=document.createElement('a');
   a.href=URL.createObjectURL(blob);a.download='generated_'+(GEN.root?GEN.root.name:'message')+'.xml';document.body.appendChild(a);a.click();
   setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},100);};
+$('ddSaveTpl').onclick=function(){if(!GEN.state||!GEN.root)return;var t={_xjwb_tpl:1,root:GEN.root.name,file:GEN.root.file,state:tplElem(GEN.state)};
+  var blob=new Blob([JSON.stringify(t,null,1)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='template_'+GEN.root.name+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},100);genStatus('ok','Vorlage gespeichert ✓');setTimeout(genValidateSilent,900);};
+
+/* UUID generator */
+$('genUUID').onclick=function(){var id=crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==='x'?r:(r&0x3|0x8)).toString(16);});
+  if(navigator.clipboard)navigator.clipboard.writeText(id);genStatus('ok','UUID kopiert ✓');};
+
+/* apply manually edited XML back to form */
+$('genApplyXml').onclick=function(){var xml=$('genXml').value.trim();if(xml)openXmlForEdit(xml,'bearbeitet');};
 // Auto-fill test data: enable optional parts and populate values/attributes using existing sample helpers
 // Walk the *currently enabled* skeleton and populate values + required attributes.
 // (Does NOT recursively enable every optional part — on XJustiz that explodes into
@@ -4929,17 +4965,10 @@ function applyTPart(ps,tp){if(ps.kind==='element'&&tp.k==='e'){ps.on=tp.on;
   else if(ps.kind==='group'&&tp.k==='g'){ps.on=tp.on;if(ps.on){var w=Math.max(tp.reps.length,1);while(ps.reps.length<w)ps.reps.push(newGroupState(ps.p,0,[]));ps.reps.length=w;
       tp.reps.forEach(function(tg,i){if(ps.reps[i])applyTGroup(ps.reps[i],tg);});}else ps.reps=[];}
   else ps.on=!!tp.on;}
-$('genSaveTpl').onclick=function(){if(!GEN.state||!GEN.root)return;var t={_xjwb_tpl:1,root:GEN.root.name,file:GEN.root.file,state:tplElem(GEN.state)};
-  var blob=new Blob([JSON.stringify(t,null,1)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='template_'+GEN.root.name+'.json';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},100);genStatus('ok','Vorlage gespeichert ✓');setTimeout(genValidateSilent,900);};
-$('genLoadTpl').onclick=function(){$('tplFile').click();};
 $('tplFile').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var t=JSON.parse(r.result);
   var ent=GEN.entries.filter(function(en){return en.name===t.root;})[0];if(!ent){genStatus('bad','Vorlage-Root “'+t.root+'” nicht im Arbeitsbereich');return;}
   genBuild(ent);$('genRoot').value=GEN.entries.indexOf(ent);applyTElem(GEN.state,t.state);renderGenForm();genStatus('ok','Vorlage geladen ✓');setTimeout(genValidateSilent,900);}
   catch(err){genStatus('bad','Vorlage konnte nicht gelesen werden');}};r.readAsText(f);e.target.value='';};
-
-/* open an existing XML message to edit */
-$('genOpenXml').onclick=function(){$('xmlFile').click();};
 $('xmlFile').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){openXmlForEdit(r.result,f.name);};r.readAsText(f);e.target.value='';};
 function openXmlForEdit(text,name){var d=new DOMParser().parseFromString(text,'application/xml');if(d.querySelector('parsererror')){genStatus('bad',name+' nicht wohlgeformt');return;}
   var rootEl=d.documentElement;var ent=GEN.entries.filter(function(en){var sym=(W.symbols.get((rootEl.namespaceURI||'')+'|'+ln(rootEl))||[])[0];return en.name===ln(rootEl);})[0];
