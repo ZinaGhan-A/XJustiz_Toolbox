@@ -4602,7 +4602,7 @@ var CODELISTS={"DABAG.Abtretungsgrund":{"001":"abgetreten an","002":"übergegang
 var CODELISTS_LC={};Object.keys(CODELISTS).forEach(function(k){CODELISTS_LC[k.toLowerCase()]=CODELISTS[k];});
 
 /* ============== GENERATOR ============== */
-var GEN={root:null,state:null,entries:[],flags:[],xml:'',prefix:{}};
+var GEN={root:null,state:null,entries:[],flags:[],xml:'',prefix:{},openPaths:null};
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
 /* ---- varied German fake test data ---- */
 var DE={
@@ -4704,7 +4704,8 @@ function newElemState(declNode,depth,seen){
   if(t.cls==='complex'){
     st.attrs=collectAttrs(t.node).map(function(a){return{name:a.name,use:a.use,type:a.type,node:a.node,on:a.use==='required',value:initVal(a.node)};});
     if(depth>50||seen.indexOf(t.node)>=0){st.group=null;st.recursive=true;}
-    else{var nt=normType(t.node);st.group=nt.group?newGroupState(nt.group,depth,seen.concat(t.node)):null;}
+    else{var nt=normType(t.node);st.group=nt.group?newGroupState(nt.group,depth,seen.concat(t.node)):null;
+      st.attrs=nt.attrs.map(function(a){return{name:a.name,use:a.use,type:a.type,node:a.node,on:a.use==='required',value:initVal(a.node)};});}
   } else if(t.cls==='simple'||t.cls==='builtin'){st.leaf=true;st.value=initVal(declNode);}
   else if(t.cls==='unresolved'){st.unresolved=true;st.leaf=true;st.unresolvedName=t.name;}
   else {st.leaf=true;st.value='';}
@@ -4769,9 +4770,11 @@ function attrField(a){var s=el('span','gattr');var inp=el('input');
   inp.value=a.value;inp.disabled=!a.on;inp.title=attrTooltip(a);
   inp.oninput=function(){a.value=inp.value;updateXml();};s.appendChild(inp);return s;}
 
-function renderGenForm(){var f=$('genForm');f.innerHTML='';
+function renderGenForm(){
+  var prevOpen=new Set();$('genForm').querySelectorAll('.gcaret.open[data-path]').forEach(function(c){prevOpen.add(c.dataset.path);});if(prevOpen.size)GEN.openPaths=prevOpen;
+  var f=$('genForm');f.innerHTML='';
   if(!GEN.state){f.innerHTML='<div class="gen-note">Kein Nachrichtentyp verfügbar — Schema mit einem globalen Element laden.</div>';$('genXml').textContent='';return;}
-  f.appendChild(renderElemNode(GEN.state,null,0,true));
+  f.appendChild(renderElemNode(GEN.state,null,0,true,'root'));
   updateXml();
   var miss=genMissingFiles();
   if(GEN.flags.length||miss.length){var n=el('div','gen-note');
@@ -4781,7 +4784,7 @@ function renderGenForm(){var f=$('genForm');f.innerHTML='';
     else if(GEN.flags.length)parts.push('Passende .xsd-Abhängigkeitsdatei laden, um sie auszufüllen.');
     n.innerHTML=parts.join(' ');f.appendChild(n);}}
 function uniq(a){return a.filter(function(x,i){return a.indexOf(x)===i;});}
-function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row=el('div','grow');
+function renderElemNode(st,partCtx,depth,isRoot,path){var wrap=el('div','gfield'),row=el('div','grow');
   var hasKids=!!st.group;var caret=el('span','gcaret'+(hasKids?'':' none'),hasKids?'▶':'');
   var slot=el('span','gslot');
   if(partCtx&&partCtx.optional){var cb=el('input','gchk');cb.type='checkbox';cb.checked=partCtx.ps.on;cb.onchange=function(){togglePart(partCtx.ps);renderGenForm();};
@@ -4800,33 +4803,35 @@ function renderElemNode(st,partCtx,depth,isRoot){var wrap=el('div','gfield'),row
   if(partCtx&&partCtx.ps&&partCtx.ps.max>1&&partCtx.ps.occ.length>Math.max(partCtx.ps.min,1)){
     var rm=el('button','gbtn','×');rm.title='dieses entfernen';rm.onclick=function(){partCtx.ps.occ.splice(partCtx.idx,1);renderGenForm();};row.appendChild(rm);}
   wrap.appendChild(row);
-  if(hasKids){var kids=el('div','gkids');renderGroup(st.group,kids,depth+1);wrap.appendChild(kids);
-    var open=depth<3;kids.style.display=open?'':'none';caret.classList.toggle('open',open);
-    caret.onclick=function(){var show=kids.style.display==='none';kids.style.display=show?'':'none';caret.classList.toggle('open',show);};}
+  if(hasKids){var kids=el('div','gkids');renderGroup(st.group,kids,depth+1,path);wrap.appendChild(kids);
+    var open=GEN.openPaths?GEN.openPaths.has(path):depth<3;
+    kids.style.display=open?'':'none';caret.classList.toggle('open',open);caret.dataset.path=path;
+    caret.onclick=function(){var show=kids.style.display==='none';kids.style.display=show?'':'none';caret.classList.toggle('open',show);
+      if(!GEN.openPaths)GEN.openPaths=new Set();if(show)GEN.openPaths.add(path);else GEN.openPaths.delete(path);};}
   return wrap;}
-function renderGroup(gs,parent,depth){
+function renderGroup(gs,parent,depth,path){
   if(gs.comp==='choice'){var brow=el('div','grow');brow.appendChild(el('span','gcaret none'));brow.appendChild(el('span','gname comp','choice:'));
     var sel=el('select','gbranch');gs.parts.forEach(function(ps,i){var o=el('option',null,branchLabel(ps));o.value=i;if(i===gs.branch)o.selected=true;sel.appendChild(o);});
     sel.onchange=function(){gs.parts.forEach(function(p){p.on=false;});gs.branch=+sel.value;ensureBranch(gs,0,[]);renderGenForm();};
     brow.appendChild(sel);parent.appendChild(brow);
-    var bp=gs.parts[gs.branch];if(bp){var bk=el('div','gkids');renderPart(bp,bk,depth);parent.appendChild(bk);}return;}
-  gs.parts.forEach(function(ps){renderPart(ps,parent,depth);});}
-function renderPart(ps,parent,depth){
+    var bp=gs.parts[gs.branch];if(bp){var bk=el('div','gkids');renderPart(bp,bk,depth,path);parent.appendChild(bk);}return;}
+  gs.parts.forEach(function(ps){renderPart(ps,parent,depth,path);});}
+function renderPart(ps,parent,depth,path){
   if(ps.kind==='any'){if(ps.min>0){var r=el('div','grow');r.appendChild(el('span','gcaret none'));r.appendChild(el('span','gname comp','any (wildcard)'));r.appendChild(el('span','gflag','add manually'));parent.appendChild(r);}return;}
   if(ps.kind==='unknown')return;
   if(ps.kind==='group'){
     if(ps.min===0){var hr=el('div','grow'+(ps.on?'':' off'));hr.appendChild(el('span','gcaret none'));
       var cb=el('input','gchk');cb.type='checkbox';cb.checked=ps.on;cb.onchange=function(){togglePart(ps);renderGenForm();};hr.appendChild(cb);
       hr.appendChild(el('span','gname comp','('+ps.p.comp+' group)'));parent.appendChild(hr);
-      if(ps.on)ps.reps.forEach(function(g){var k=el('div','gkids');renderGroup(g,k,depth+1);parent.appendChild(k);});}
-    else ps.reps.forEach(function(g){renderGroup(g,parent,depth);});return;}
+      if(ps.on)ps.reps.forEach(function(g){var k=el('div','gkids');renderGroup(g,k,depth+1,path);parent.appendChild(k);});}
+    else ps.reps.forEach(function(g){renderGroup(g,parent,depth,path);});return;}
   // element part
   var optional=ps.min===0;
   if(optional&&!ps.on){var r=el('div','grow off');r.appendChild(el('span','gcaret none'));
     var cb=el('input','gchk');cb.type='checkbox';cb.onchange=function(){togglePart(ps);renderGenForm();};r.appendChild(cb);
     r.appendChild(el('span','gname',ps.p.name));if(ps.p.max>1)r.appendChild(el('span','gcount','0..'+(ps.p.max===Infinity?'∞':ps.p.max)));
     parent.appendChild(r);return;}
-  ps.occ.forEach(function(st,idx){parent.appendChild(renderElemNode(st,{ps:ps,idx:idx,optional:optional&&idx===0},depth,false));});
+  ps.occ.forEach(function(st,idx){var p=path+'/'+ps.p.name+(ps.occ.length>1?'['+idx+']':'');parent.appendChild(renderElemNode(st,{ps:ps,idx:idx,optional:optional&&idx===0},depth,false,p));});
   if(ps.on&&ps.occ.length<ps.p.max){var add=el('button','gbtn','+ add '+ps.p.name);add.style.marginLeft='20px';
     add.onclick=function(){ps.occ.push(newElemState(ps.p.decl,0,[]));renderGenForm();};parent.appendChild(add);}}
 
@@ -4905,7 +4910,7 @@ function genValidate(){if(!GEN.xml)updateXml();var d=new DOMParser().parseFromSt
   lastInstance={name:'generiert · '+(GEN.root?GEN.root.name:''),issues:inst};setTab('validate');renderValidate();revealRight();}
 
 function genEntries(){var out=[];W.files.forEach(function(rec){if(rec.error)return;eles(rec.root).forEach(function(c){if(ln(c)==='element'&&c.getAttribute('name'))out.push({name:c.getAttribute('name'),node:c,file:rec.name});});});return out;}
-function genBuild(entry){GEN.root=entry;genIssuesDismissed=false;GEN.state=newElemState(entry.node,0,[]);renderGenForm();}
+function genBuild(entry){GEN.root=entry;genIssuesDismissed=false;GEN.openPaths=null;GEN.state=newElemState(entry.node,0,[]);renderGenForm();}
 function entryKey(e){return e?e.name+'|'+e.file:'';}
 // "nachricht.gds.basisnachricht.0005006" → Fachmodul "gds"; null if not a message root
 function fachmodul(name){var m=/^nachricht\.([^.]+)\./.exec(name);return m?m[1]:null;}
